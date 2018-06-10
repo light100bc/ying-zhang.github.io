@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Ying的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Ying的博客">
+<meta property="og:url" content="https://ying-zhang.github.io/index.html">
+<meta property="og:site_name" content="Ying的博客">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ying的博客">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+</head>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-x-adv-yarn" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/yi/2018/x-adv-yarn/">【译文】YARN资源管理器的研究进展，YARN-1011</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/yi/2018/x-adv-yarn/" class="article-date">
+  <time datetime="2018-06-09T16:00:00.000Z" itemprop="datePublished">2018-06-10</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yi/">yi</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>YARN资源管理器的研究进展（Advancements in YARN Resource Manager）是大数据技术百科（Encyclopedia of Big Data Technologies，这本书的其它条目质量较差）中的一个条目，是由微软的员工编写的对YARN进展比较全面的综述。<br>YARN-1011是YARN关于资源超售的一个JIRA项，是上面条目提到的一个参考文献，亦翻译后作为附录。</p>
+<p>英文全文：<a href="https://www.microsoft.com/en-us/research/uploads/prod/2018/02/yarn-big-data-encyclopedia-2018.pdf" target="_blank" rel="external">https://www.microsoft.com/en-us/research/uploads/prod/2018/02/yarn-big-data-encyclopedia-2018.pdf</a><br>译文全文：[<a href="https://ying-zhang.github.io/doc/Adv_in_YARN_CN_Ying_201806.pdf">https://ying-zhang.github.io/doc/Adv_in_YARN_CN_Ying_201806.pdf</a>]</p>
+        
+          <p class="article-more-link">
+            <a href="/yi/2018/x-adv-yarn/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-book-list" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc/2018/book-list/">书单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/misc/2018/book-list/" class="article-date">
+  <time datetime="2018-01-11T16:00:00.000Z" itemprop="datePublished">2018-01-12</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/misc/">misc</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>入职半年的Y让我推荐一些书。说来惭愧，自己的水平本来就不怎么样，一年多来浑浑噩噩，难说有资格推荐；再者，怕推荐的书单跟网上搜到的结果也不会有太大区别，还怕不合适的书耽误了他的时间，毕竟他的 <strong>时薪</strong> 比市面上绝大部分书的定价都多得多;-)<br>于是拖着过了元旦，Y的饭都吃过一周多了，不能老是拖着了……</p>
+        
+          <p class="article-more-link">
+            <a href="/misc/2018/book-list/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-setup-mesos-with-auth" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/setup/2017/setup-mesos-with-auth/">CentOS 7 安装支持认证的Mesos集群</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/setup/2017/setup-mesos-with-auth/" class="article-date">
+  <time datetime="2017-12-19T16:00:00.000Z" itemprop="datePublished">2017-12-20</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/setup/">setup</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在CentOS 7上安装Mesos集群，设置对Slave和框架的认证，改为普通用户执行任务。Chronos在容器中执行GPU作业。</p>
+        
+          <p class="article-more-link">
+            <a href="/setup/2017/setup-mesos-with-auth/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-setup-tensorflow-gpu-centos7" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/setup/2017/setup-tensorflow-gpu-centos7/">CentOS 7 安装TensorFlow GPU深度学习环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/setup/2017/setup-tensorflow-gpu-centos7/" class="article-date">
+  <time datetime="2017-12-03T16:00:00.000Z" itemprop="datePublished">2017-12-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/setup/">setup</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在CentOS 7上安装Nvidia GTX 1080 Ti显卡的驱动，以及TensorFlow GPU等深度学习开发环境。</p>
+        
+          <p class="article-more-link">
+            <a href="/setup/2017/setup-tensorflow-gpu-centos7/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-x-eurosys15-borg-cn" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/yi/2017/x-eurosys15-borg-cn/">【译文修订】使用Borg在Google管理大规模集群</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/yi/2017/x-eurosys15-borg-cn/" class="article-date">
+  <time datetime="2017-10-30T16:00:00.000Z" itemprop="datePublished">2017-10-31</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yi/">yi</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>发表于EuroSys 2015的 <strong><em>Large-scale cluster management at Google with Borg</em></strong> 详细介绍了Google的Borg资源管理器。已经有网友“难易（HardySimpson）” 翻译了此文，这里对其稍作修订。之前读过两三遍此文，每遍都感觉有新的体会，这次修订就是为了更仔细地读一遍。</p>
+        
+          <p class="article-more-link">
+            <a href="/yi/2017/x-eurosys15-borg-cn/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-x-docker-image-spec-v1.2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/yi/2017/x-docker-image-spec-v1.2/">【译文】Docker镜像格式规范，v1.2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/yi/2017/x-docker-image-spec-v1.2/" class="article-date">
+  <time datetime="2017-05-15T16:00:00.000Z" itemprop="datePublished">2017-05-16</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yi/">yi</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文见 <a href="https://github.com/moby/moby/blob/master/image/spec/v1.2.md" target="_blank" rel="external">https://github.com/moby/moby/blob/master/image/spec/v1.2.md</a><br>Docker已经迁移到Moby项目了。</p>
+        
+          <p class="article-more-link">
+            <a href="/yi/2017/x-docker-image-spec-v1.2/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-setup-nat-x-route" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/setup/2017/setup-nat-x-route/">CentOS 7 及 Ubuntu 16.04 设置 NAT 网络</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/setup/2017/setup-nat-x-route/" class="article-date">
+  <time datetime="2017-04-14T16:00:00.000Z" itemprop="datePublished">2017-04-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/setup/">setup</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>记录一下设置一台双网卡的CentOS服务器提供 NAT 转发，作为内网网关，其它服务器的默认网关更改为此节点，添加路由，以及处理外部ssh登录变慢的问题。</p>
+        
+          <p class="article-more-link">
+            <a href="/setup/2017/setup-nat-x-route/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-setup-proxy" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/setup/2017/setup-proxy/">设置及使用HTTP代理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/setup/2017/setup-proxy/" class="article-date">
+  <time datetime="2017-04-13T16:00:00.000Z" itemprop="datePublished">2017-04-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/setup/">setup</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>记录一下设置Squid作为HTTP代理，及docker、yum、apt等的代理配置。</p>
+<p>TODO: socks 5代理</p>
+        
+          <p class="article-more-link">
+            <a href="/setup/2017/setup-proxy/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-x-spanner-truetime-cap" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/yi/2017/x-spanner-truetime-cap/">【译文】Spanner, TrueTime 和CAP理论</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/yi/2017/x-spanner-truetime-cap/" class="article-date">
+  <time datetime="2017-03-05T16:00:00.000Z" itemprop="datePublished">2017-03-06</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/yi/">yi</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作者：<a href="https://en.wikipedia.org/wiki/Eric_Brewer_%28scientist%29" target="_blank" rel="external">Eric Brewer，VP, Infrastructure, Google</a><br>2017-02-14<br>英文原文：<a href="https://research.google.com/pubs/pub45855.html" target="_blank" rel="external">Spanner, TrueTime and the CAP Theorem</a> ,<a href="https://research.google.com/pubs/archive/45855.pdf" target="_blank" rel="external">英文全文 PDF</a><br><a href="/doc/Spanner-TrueTime-CAP.pdf">译文全文PDF</a></p>
+<p>2018-06更新：推荐阅读《设计数据密集型应用（Designing Data-Intensive Applications）》第9章</p>
+        
+          <p class="article-more-link">
+            <a href="/yi/2017/x-spanner-truetime-cap/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ccf-all-in-one" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc/2017/ccf-all-in-one/">CCF目录单页版</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/misc/2017/ccf-all-in-one/" class="article-date">
+  <time datetime="2017-02-24T16:00:00.000Z" itemprop="datePublished">2017-02-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/misc/">misc</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前一段时间整理论文列表，感觉分成多页的目录用起来不太方便。于是就粘贴复制，把它们合并到一起。<br>Markdown排版比较麻烦，分别保存为HTML格式和Excel格式。<br>CCF网站2016年底改版了一次，目前还保留着旧版网站，新旧网站都有目录的内容。</p>
+<p>各链接如下：</p>
+<ul>
+<li><strong><a href="/doc/ccf-all-in-one-2017-02-25.html">我合并后的CCF目录完整列表，HTML链接，2017-02-25</a></strong> </li>
+<li><strong><a href="/doc/ccf_all_in_one_2017-02-25.xlsx">我合并后的CCF目录完整列表，Excel文件</a></strong></li>
+<li>CCF <strong>新</strong> 网站链接：<a href="http://webtest.ccf.org.cn/xspj/gyml/" target="_blank" rel="external">CCF目录网页版</a>，<a href="http://www.ccf.org.cn/ccf/contentcore/resource/download?ID=32826" target="_blank" rel="external">2015版的PDF</a></li>
+<li>CCF <strong>旧</strong> 网站链接：<a href="http://history.ccf.org.cn/sites/ccf/paiming.jsp" target="_blank" rel="external">CCF目录网页版</a>，<a href="http://history.ccf.org.cn/sites/paiming/2015ccfmulu.pdf" target="_blank" rel="external">2015版的PDF</a> </li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/misc/2017/ccf-all-in-one/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-we-love-paper" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc/2016/we-love-paper/">如何收集和整理论文（面向CS专业）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/misc/2016/we-love-paper/" class="article-date">
+  <time datetime="2016-09-27T16:00:00.000Z" itemprop="datePublished">2016-09-28</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/misc/">misc</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>论文（Paper）是每个研究生读研路上挥之不去的“阴云”。<br>无论是否已经有了一个好的课题或想法，都首先要收集某个研究方向一定数量的论文，来了解相关的工作和最新进展（State of the art &amp; practice）。<br>本文介绍了如何检索、收集计算机科学（CS）专业的论文，还介绍了相关的机构，学术会议和论文数据库。<br>文末有 <a href="#hosts"><strong>Bonus</strong></a> 哦;-)</p>
+        
+          <p class="article-more-link">
+            <a href="/misc/2016/we-love-paper/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vhd-win-boot" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/cloud/2016/vhd-win-boot/">Windows从VHD启动实现极速快照和恢复</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/cloud/2016/vhd-win-boot/" class="article-date">
+  <time datetime="2016-09-24T16:00:00.000Z" itemprop="datePublished">2016-09-25</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cloud/">cloud</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>把之前发过的<a href="/cloud/2016/vm-disk/index.html#win-vhd-boot">虚拟机及docker的存储，快照和镜像</a>相关部分单独拿出来。</p>
+<p>无正文。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vm-disk" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/cloud/2016/vm-disk/">虚拟机及docker的存储，快照和镜像</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/cloud/2016/vm-disk/" class="article-date">
+  <time datetime="2016-09-23T16:00:00.000Z" itemprop="datePublished">2016-09-24</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cloud/">cloud</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>VM的虚拟硬盘让我们能够把整个操作系统和应用软件、配置、数据都 <strong>封装</strong> 在一个（或多个）文件里，这样就实现了VM的迁移，再加上 <strong>差分硬盘</strong> 功能，实现了VM的快速克隆和快照。对VM镜像管理的需求也就随之而来了。</p>
+        
+          <p class="article-more-link">
+            <a href="/cloud/2016/vm-disk/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vm-net-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/cloud/2016/vm-net-2/">再说docker及云中的网络连接</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/cloud/2016/vm-net-2/" class="article-date">
+  <time datetime="2016-09-20T16:00:00.000Z" itemprop="datePublished">2016-09-21</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cloud/">cloud</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前写过一篇<a href="https://ying-zhang.github.io/cloud/2016/vm-net/">关于虚拟机和docker网络的日志</a>，主要介绍的是VM的虚拟网络，顺带提了一下docker的桥接。<br>经过2016年的几次版本升级，docker的网络功能有了很大的改善，已经基本稳定可用了。<br>去年<a href="https://github.com/NAP-GHJ/NetTool/blob/master/blog/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C.md" target="_blank" rel="external">与一个大四做毕设的学弟折腾过一段时间docker网络</a>，这里参考浙大SEL实验室的《Docker容器与容器云 第2版》（下面简称《容器云》书） <strong>4.2节 Docker高级网络实战</strong> ，整理一下相关内容。</p>
+        
+          <p class="article-more-link">
+            <a href="/cloud/2016/vm-net-2/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vm-net" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/cloud/2016/vm-net/">虚拟机及docker的网络连接</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/cloud/2016/vm-net/" class="article-date">
+  <time datetime="2016-09-19T16:00:00.000Z" itemprop="datePublished">2016-09-20</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/cloud/">cloud</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>网络是云计算中重要的基础设施。这里比较了VirtualBox（简写为vbox），VMware，Hyper-V，KVM这些虚拟机管理器（VMM）及docker的网络连接方式。</p>
+        
+          <p class="article-more-link">
+            <a href="/cloud/2016/vm-net/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-udpnuurufa" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc/2016/udpnuurufa/">双拼输入法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/misc/2016/udpnuurufa/" class="article-date">
+  <time datetime="2016-09-18T16:00:00.000Z" itemprop="datePublished">2016-09-19</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/misc/">misc</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>双拼输入法是一个很典型的例子：这个功能一直就在隐藏在我们每天使用的软件中，然而人们熟视无睹。一旦掌握了，用起来就会很方便。<br>除了介绍双拼输入法，还有一点关于语音输入的杂想。</p>
+        
+          <p class="article-more-link">
+            <a href="/misc/2016/udpnuurufa/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-setup-remote" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/setup/2016/setup-remote/">局域网内的远程操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/setup/2016/setup-remote/" class="article-date">
+  <time datetime="2016-09-17T16:00:00.000Z" itemprop="datePublished">2016-09-18</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/setup/">setup</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一些基础的远程操作，包括ssh，共享文件，远程桌面。</p>
+        
+          <p class="article-more-link">
+            <a href="/setup/2016/setup-remote/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-setup-hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/setup/2016/setup-hexo/">Hello Hexo！</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/setup/2016/setup-hexo/" class="article-date">
+  <time datetime="2016-09-14T16:00:00.000Z" itemprop="datePublished">2016-09-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/setup/">setup</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>欢迎访问。<br>本博客使用<a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>生成。本文记录了设置过程。</p>
+        
+          <p class="article-more-link">
+            <a href="/setup/2016/setup-hexo/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-obstinate-are-the-trammels" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc/2016/obstinate-are-the-trammels/">罗网是坚韧的</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/misc/2016/obstinate-are-the-trammels/" class="article-date">
+  <time datetime="2016-05-31T16:00:00.000Z" itemprop="datePublished">2016-06-01</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/misc/">misc</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是一篇吐槽文，想到啥就写啥，不定期吐槽。。。<br>为了清净，把日期改了，手工置底。</p>
+        
+          <p class="article-more-link">
+            <a href="/misc/2016/obstinate-are-the-trammels/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-a-story-of-stylus" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/misc/2016/a-story-of-stylus/">如果有一支笔</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/misc/2016/a-story-of-stylus/" class="article-date">
+  <time datetime="2016-05-19T16:00:00.000Z" itemprop="datePublished">2016-05-20</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/misc/">misc</a>
+  </div>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是一个我四年前的想法，但一直没有实现。所以说，这也是一个“<a href="https://www.zhihu.com/question/22989105" target="_blank" rel="external">就差一个软件工程师了</a>”的悲伤的故事（其实还缺一个硬件工程师）。<br>为了清净，把日期改了，手工置底。</p>
+        
+          <p class="article-more-link">
+            <a href="/misc/2016/a-story-of-stylus/#more">阅读全文...</a>
+          </p>
+        
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+  
+  
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/ying-zhang" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+			
+  			<li><a href="/atom.xml" target="_blank"><i class="icon icon-tag"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+      </div>
+      <footer id="footer">
+	<center>
+		<img src="/img/qr.jpg" alt="赏~" height="150" />
+		<br/>支持一下！
+		
+					<div id="footer-info" class="inner">
+						&copy;
+						2018
+							Ying ZHANG
+								- Powered by
+								<a href="http://hexo.io/" target="_blank">Hexo</a>
+								- Theme
+								<a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+								- Project Source at
+								<a href="https://github.com/ying-zhang/ying-zhang.github.io/" target="_blank">Github</a>
+					</div>
+	</center>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="https://github.com/ying-zhang" class="mobile-nav-link">Github</a>
+  
+    <a href="/atom.xml" class="mobile-nav-link">RSS</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+</body>
+</html>
