@@ -7,8 +7,8 @@ Windows Registry Editor Version 5.00
 "00"="Consolas"
 
 ;开启的分区共享(C$, D$...)
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System]
-"LocalAccountTokenFilterPolicy"=dword:00000001
+;[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System]
+;"LocalAccountTokenFilterPolicy"=dword:00000001
 
 ;清除通知区域图标，需重启文件资源管理器
 [-HKEY_CURRENT_USER\Software\Classes\LocalSettings\Software\Microsoft\Windows\CurrentVersion\TrayNotify\PastIconsStream]
@@ -29,8 +29,6 @@ Windows Registry Editor Version 5.00
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{24ad3ad4-a569-4530-98e1-ab02f9417aa8}]
 ;3D Objects
 [-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MyComputer\NameSpace\{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}]
-
-
 
 ;删除文件资源管理器左侧的OneDrive
 [HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\ShellFolder]

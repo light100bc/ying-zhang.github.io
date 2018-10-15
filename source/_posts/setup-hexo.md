@@ -20,9 +20,9 @@ hexo有多种博客主题可选，这里使用了 [jane 主题](https://github.c
 下面的设置过程参考了[hexo简易教程](http://mclspace.com/2014/10/19/about-hexo/) 和 [hexo_install_config](http://methor.github.io/%E5%B7%A5%E5%85%B7/hexo/hexo-install-config/)。
 
 
-# 在Ubuntu 16.04上安装所需程序
+# 在 Ubuntu 上安装所需程序
 
-如果是桌面版的Ubuntu，打开终端（快捷键为`Ctrl+Alt+T`），执行下面的命令。
+在终端执行下面的命令。
 
 ## 安装git
 
@@ -46,7 +46,7 @@ a. 从Node.js官网 https://nodejs.org/en/download/ 下载Linux-x64系统的二�
 
 ```
 cd ~
-ver=v6.9.2
+ver=v8.12.0
 wget https://nodejs.org/dist/${ver}/node-${ver}-linux-x64.tar.xz
 
 tar axf node-${ver}-linux-x64.tar.xz
@@ -60,23 +60,17 @@ b. 通过添加软件源的方式
 参考[Installing Node.js via package manager](https://nodejs.org/en/download/package-manager/)，
 
 ```
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt install -y nodejs
 
 sudo apt install -y build-essential #如果npm安装的包需要在本地编译，则需要安装编译工具如gcc等
-```
-
-## 安装hexo
-
-```
-sudo npm install hexo-cli -g
 ```
 
 # 在Windows 10上安装所需程序
 
 ## 安装git
 
-从git官网 https://git-scm.com/downloads 下载Windows 系统的[git客户端安装程序](https://github.com/git-for-windows/git/releases/download/v2.10.0.windows.1/Git-2.10.0-64-bit.exe) 。
+从git官网 https://git-scm.com/downloads 下载Windows 系统的 Git客户端安装程序。
 执行安装程序，建议
 + 将其安装到`C:\git`这样比较短的路径下，方便以后敲命令，
 + 并且选择 Use Git and optional Unix tools from the Windows Command Prompt ，
@@ -90,10 +84,16 @@ Windows系统上git默认使用`C:\Users\[UserName]\.ssh`下的 key。
 > 以`.`开头的文件夹需要在命令窗口执行`mkdir`来创建。
 
 ## 安装node.js
-从Node.js https://nodejs.org/en/download/ 下载[Windows x64系统的二进制安装包](https://nodejs.org/dist/v4.5.0/node-v4.5.0-x64.msi) 。
+从Node.js https://nodejs.org/en/download/ 下载[Windows x64系统的二进制安装包](https://nodejs.org/dist/v8.12.0/node-v8.12.0-x64.msi) 。
 执行安装程序，建议将其安装到`C:\nodejs`，并选择将其添加到`PATH`路径中。
 
-## 安装hexo
+
+# 修改 npm 源
+```
+npm config set registry http://registry.npm.taobao.org/
+```
+
+# 安装hexo
 打开命令窗口，执行下面的命令
 ```
 npm install hexo-cli -g
@@ -117,7 +117,7 @@ npm install hexo-math           --save
 
 ## 设置 `_config.yml`
 
-在 `_config.yml` 修改博客名，固定链接格式，主题，deploy的repo等。部分设置如下：
+在 `_config.yml` 修改博客名，固定链接格式，主题，deploy repo 等。部分设置如下：
 
 ```
 ## Themes: https://hexo.io/themes/
@@ -129,6 +129,11 @@ deploy:
   type: git
   repository: git@github.com:ying-zhang/ying-zhang.github.io.git
   branch: master
+
+math:
+  engine: 'mathjax'
+  mathjax:
+    src: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML
 ```
 
 ## 使用[jane主题](https://github.com/hejianxian/hexo-theme-jane)
@@ -237,30 +242,31 @@ git push -u github master
 {% endcodeblock %}
 
 ## 克隆已有的blog项目
-当然需要已经安装好git，nodejs和hexo。
+需要已经安装好了 git，nodejs 和 hexo。
 {% codeblock line_number:false%}
 git clone git@github.com:ying-zhang/blog.git
 cd blog
 
 git remote rename origin github
 
-7z x node_modules.7z    # 不要忘了这一步
+npm install --save
 7z x themes.7z
 {% endcodeblock %}
 
 # Tips
 
-Windows下编辑文本需要注意编码，应使用utf8无bom格式的编码，建议使用VS Code编辑器。
+Windows 下编辑文本需要注意编码，应使用 utf8 无bom 格式的编码，建议使用 VS Code 编辑器。
 
 ## 编辑数学公式
 注意，需要`hexo-math`插件，但这个插件的作者已经停止维护了，不知有什么替代的。
 ```
 {% math %}
 \begin{align*}
+\begin{align*}
 -\sum_i{P_i\log_2\frac{P_i}{Q_i}} =& \sum_i{P_i\log_2\frac{Q_i}{P_i}} \\
-\le& \log_2\sum_i{P_i\frac{Q_i}{P_i}} \tag{Jensen 不等式} \\
-=& \log_2\sum_i{Q_i} \\
-=& 0
+                                \le& \log_2\sum_i{P_i\frac{Q_i}{P_i}} \tag{Jensen 不等式} \\
+                                  =& \log_2\sum_i{Q_i} \\
+                                  =& 0
 \end{align*}
 {% endmath %}
 ```
@@ -268,9 +274,9 @@ Windows下编辑文本需要注意编码，应使用utf8无bom格式的编码，
 {% math %}
 \begin{align*}
 -\sum_i{P_i\log_2\frac{P_i}{Q_i}} =& \sum_i{P_i\log_2\frac{Q_i}{P_i}} \\
-\le& \log_2\sum_i{P_i\frac{Q_i}{P_i}} \tag{Jensen 不等式} \\
-=& \log_2\sum_i{Q_i} \\
-=& 0
+                                \le& \log_2\sum_i{P_i\frac{Q_i}{P_i}} \tag{Jensen 不等式} \\
+                                  =& \log_2\sum_i{Q_i} \\
+                                  =& 0
 \end{align*}
 {% endmath %}
 

@@ -7,3 +7,5 @@ public/
 .npmignore
 .vs/
 db.json
+package-lock.json
+source/sync.ffs_db

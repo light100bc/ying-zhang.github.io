@@ -73,3 +73,8 @@ deploy:
   type: git
   repository: git@github.com:ying-zhang/ying-zhang.github.io.git
   branch: master
+
+math:
+  engine: 'mathjax'
+  mathjax:
+    src: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML
