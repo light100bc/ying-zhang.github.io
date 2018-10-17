@@ -58,63 +58,63 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <p>作者：<a href="https://en.wikipedia.org/wiki/Eric_Brewer_%28scientist%29" target="_blank" rel="external">Eric Brewer，VP, Infrastructure, Google</a><br>2017-02-14<br>英文原文：<a href="https://research.google.com/pubs/pub45855.html" target="_blank" rel="external">Spanner, TrueTime and the CAP Theorem</a> ,<a href="https://research.google.com/pubs/archive/45855.pdf" target="_blank" rel="external">英文全文 PDF</a><br><a href="/doc/Spanner-TrueTime-CAP.pdf">译文全文PDF</a></p>
+        <p>作者：<a href="https://en.wikipedia.org/wiki/Eric_Brewer_%28scientist%29" target="_blank" rel="noopener">Eric Brewer，VP, Infrastructure, Google</a><br>2017-02-14<br>英文原文：<a href="https://research.google.com/pubs/pub45855.html" target="_blank" rel="noopener">Spanner, TrueTime and the CAP Theorem</a> ,<a href="https://research.google.com/pubs/archive/45855.pdf" target="_blank" rel="noopener">英文全文 PDF</a><br><a href="/doc/Spanner-TrueTime-CAP.pdf">译文全文PDF</a></p>
 <p>2018-06更新：推荐阅读《设计数据密集型应用（Designing Data-Intensive Applications）》第9章</p>
 <a id="more"></a>
 <hr>
-<h1 id="译者注"><a href="#译者注" class="headerlink" title="译者注"></a>译者注</h1><p><a href="https://zh.wikipedia.org/wiki/CAP%E5%AE%9A%E7%90%86" target="_blank" rel="external">CAP定理</a>是分布式系统中一个“著名”的结论，它又被称为布鲁尔定理（Brewer’s theorem，看看上面的本文作者是谁？）。CAP定理说的是一种不可能性，可能让人联想到另一个类似的不可能定理 “<a href="https://zh.wikipedia.org/wiki/%E5%93%A5%E5%BE%B7%E5%B0%94%E4%B8%8D%E5%AE%8C%E5%A4%87%E5%AE%9A%E7%90%86" target="_blank" rel="external">哥德尔不完备性定理</a>”。CAP定理可能是互联网公司在面试时用来区分科班和半路出家程序员的必考题了。<br>实际上 <strong>这个定理的重要性被高估了</strong>。注意到 <strong>就是本文的作者（Eric Brewer）提出了CAP定理</strong>，而他还在2012年发表了一篇文章 “<a href="http://www.infoq.com/cn/articles/cap-twelve-years-later-how-the-rules-have-changed" target="_blank" rel="external">CAP理论十二年回顾：”规则”变了</a>” 的文章，再加上这篇 <strong>借Spanner来讨论CAP定理</strong> 的文章，实际上是委婉地承认了这一点。</p>
+<h1 id="译者注"><a href="#译者注" class="headerlink" title="译者注"></a>译者注</h1><p><a href="https://zh.wikipedia.org/wiki/CAP%E5%AE%9A%E7%90%86" target="_blank" rel="noopener">CAP定理</a>是分布式系统中一个“著名”的结论，它又被称为布鲁尔定理（Brewer’s theorem，看看上面的本文作者是谁？）。CAP定理说的是一种不可能性，可能让人联想到另一个类似的不可能定理 “<a href="https://zh.wikipedia.org/wiki/%E5%93%A5%E5%BE%B7%E5%B0%94%E4%B8%8D%E5%AE%8C%E5%A4%87%E5%AE%9A%E7%90%86" target="_blank" rel="noopener">哥德尔不完备性定理</a>”。CAP定理可能是互联网公司在面试时用来区分科班和半路出家程序员的必考题了。<br>实际上 <strong>这个定理的重要性被高估了</strong>。注意到 <strong>就是本文的作者（Eric Brewer）提出了CAP定理</strong>，而他还在2012年发表了一篇文章 “<a href="http://www.infoq.com/cn/articles/cap-twelve-years-later-how-the-rules-have-changed" target="_blank" rel="noopener">CAP理论十二年回顾：”规则”变了</a>” 的文章，再加上这篇 <strong>借Spanner来讨论CAP定理</strong> 的文章，实际上是委婉地承认了这一点。</p>
 <p>CAP定理说这3个字母最多只能同时实现2个字母的组合，但这3个字母并非同一层次的概念：A（可用性）和C（一致性）是数据副本的属性，但P（容忍网络分区）反映的是物理世界网络的状态。<br><strong>网络总是可能会断的</strong>。为实现A，需要客户端到服务器之间的网络正常，为实现C，需要服务器之间的网络正常。如果网络一切正常，那么AC能同时实现，CAP定理 <strong>在正常情况下并没有什么作用</strong>。如果网络中断，AC或者有1个无法实现，或者2个都无法实现，好吧，等着挨老板的骂吧（一个更好的办法是 <strong>准备预案</strong>，可能是 <strong>技术上的</strong>，也可能是 <strong>公关</strong> 预案）。 <strong>AC</strong> 不可能同时实现，是物理世界本身的限制。 下面的文章中认为Google的网络可靠性是足够高的，所以他们认为同时实现了CAP。<br>CAP只是一个定性的理论，讨论的情况或者是0， 或者是100%。首先，工程上的事没有什么能100%，比如系统可用性，可以说99.99%，99.999%，但没有一个工程师拍胸脯说能达到100%；其次，这3个字母都是可以更细致地量化的（C的量化比较复杂）：</p>
 <ul>
 <li>对于P，如果一台机器与集群失联了，一般不会认为发生了网络分区，分布式集群的管理系统应该能够容忍这个故障，继续正常运行；那么2台机器呢，n台机器呢？恰好 1：1的分裂为2个分区只是无数可能中的一种，其概率是 0 （$ 1/\infty $）。到何种程度才认为处于网络分区状态呢？</li>
 <li>对于A，就是常说的“n个9”了，通过可用时间可以准确地测量。如果一个系统不可用会怎样？ <strong>12306.cn</strong> 网站每天23:00~06:00停止购票服务，好像也没有造成多大的不便嘛。</li>
-<li>对于C，一致性的量化比较复杂，从Linearisability，Atomicity/Strong Consistency，到Eventually Consistency，有多种不同程度的一致性。对于最终一致性（Eventually Consistency），而言，多久算是 “最终” 也是需要量化的。关于量化这一点，在“<a href="http://www.infoq.com/cn/articles/cap-twelve-years-later-how-the-rules-have-changed" target="_blank" rel="external">CAP理论十二年回顾：”规则”变了</a>” 这篇文章中也有讨论。</li>
+<li>对于C，一致性的量化比较复杂，从Linearisability，Atomicity/Strong Consistency，到Eventually Consistency，有多种不同程度的一致性。对于最终一致性（Eventually Consistency），而言，多久算是 “最终” 也是需要量化的。关于量化这一点，在“<a href="http://www.infoq.com/cn/articles/cap-twelve-years-later-how-the-rules-have-changed" target="_blank" rel="noopener">CAP理论十二年回顾：”规则”变了</a>” 这篇文章中也有讨论。</li>
 </ul>
 <h2 id="CAP定理和一致性相关文章"><a href="#CAP定理和一致性相关文章" class="headerlink" title="CAP定理和一致性相关文章"></a>CAP定理和一致性相关文章</h2><p>Blog</p>
 <ul>
-<li><a href="http://www.yunweipai.com/archives/8432.html" target="_blank" rel="external">不懂点CAP理论，你好意思说你是做分布式的吗？</a></li>
-<li><a href="https://codahale.com/you-cant-sacrifice-partition-tolerance/" target="_blank" rel="external">You Can’t Sacrifice Partition Tolerance</a></li>
-<li><a href="http://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html" target="_blank" rel="external">Please stop calling databases CP or AP</a></li>
-<li><a href="https://github.com/aphyr/partitions-post" target="_blank" rel="external">关于网络分区的一篇blog</a></li>
+<li><a href="http://www.yunweipai.com/archives/8432.html" target="_blank" rel="noopener">不懂点CAP理论，你好意思说你是做分布式的吗？</a></li>
+<li><a href="https://codahale.com/you-cant-sacrifice-partition-tolerance/" target="_blank" rel="noopener">You Can’t Sacrifice Partition Tolerance</a></li>
+<li><a href="http://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html" target="_blank" rel="noopener">Please stop calling databases CP or AP</a></li>
+<li><a href="https://github.com/aphyr/partitions-post" target="_blank" rel="noopener">关于网络分区的一篇blog</a></li>
 </ul>
 <p>Paper</p>
 <ul>
-<li><a href="http://queue.acm.org/detail.cfm?id=2462076" target="_blank" rel="external">Eventual Consistency Today - Limitations, Extensions,and Beyond - CACM1305</a></li>
-<li><a href="https://www.microsoft.com/en-us/research/publication/replicated-data-consistency-explained-through-baseball/" target="_blank" rel="external">Replicated Data Consistency Explained Through Baseball - CACM1312</a>，译文<a href="/doc/CACM1312_Replicated_Data_Consistency_Explained_Through_Baseball.pdf">以棒球赛为例解释复制数据的一致性问题</a></li>
-<li><a href="www.bailis.org/papers/pbs-vldbj2014.pd">Quantifying Eventual Consistency with PBS - CACM1408</a>，译文<a href="/doc/CACM1408_Quantifying_Eventual_Consistency_with_PBS.pdf">利用PBS 量化最终一致性</a>；作者<a href="http://www.bailis.org/" target="_blank" rel="external">Peter Bailis</a>也是一位大牛。</li>
-<li><a href="http://cs.nju.edu.cn/yuhuang/huangyufiles/papers/2017-pa2a-tc.pdf" target="_blank" rel="external">Probabilistically-Atomic 2-Atomicity: Enabling Almost Strong Consistency in Distributed Storage Systems</a>， <a href="http://ieeexplore.ieee.org/document/7547362/" target="_blank" rel="external">IEEE Xplore上的版本</a></li>
-<li><a href="https://www.ksp.kit.edu/9783731501862" target="_blank" rel="external">PhD14 - Benchmarking Eventually Consistent Distributed Storage System - David Bermbach</a></li>
-<li><a href="http://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=6155638" target="_blank" rel="external">IEEE Computer - ( Vol. 45 Issue 2 ) The CAP Theorem’s Growing Impact</a></li>
-<li><a href="https://arxiv.org/abs/1509.05393" target="_blank" rel="external">A Critique of the CAP Theorem</a><blockquote>
+<li><a href="http://queue.acm.org/detail.cfm?id=2462076" target="_blank" rel="noopener">Eventual Consistency Today - Limitations, Extensions,and Beyond - CACM1305</a></li>
+<li><a href="https://www.microsoft.com/en-us/research/publication/replicated-data-consistency-explained-through-baseball/" target="_blank" rel="noopener">Replicated Data Consistency Explained Through Baseball - CACM1312</a>，译文<a href="/doc/CACM1312_Replicated_Data_Consistency_Explained_Through_Baseball.pdf">以棒球赛为例解释复制数据的一致性问题</a></li>
+<li><a href="www.bailis.org/papers/pbs-vldbj2014.pd">Quantifying Eventual Consistency with PBS - CACM1408</a>，译文<a href="/doc/CACM1408_Quantifying_Eventual_Consistency_with_PBS.pdf">利用PBS 量化最终一致性</a>；作者<a href="http://www.bailis.org/" target="_blank" rel="noopener">Peter Bailis</a>也是一位大牛。</li>
+<li><a href="http://cs.nju.edu.cn/yuhuang/huangyufiles/papers/2017-pa2a-tc.pdf" target="_blank" rel="noopener">Probabilistically-Atomic 2-Atomicity: Enabling Almost Strong Consistency in Distributed Storage Systems</a>， <a href="http://ieeexplore.ieee.org/document/7547362/" target="_blank" rel="noopener">IEEE Xplore上的版本</a></li>
+<li><a href="https://www.ksp.kit.edu/9783731501862" target="_blank" rel="noopener">PhD14 - Benchmarking Eventually Consistent Distributed Storage System - David Bermbach</a></li>
+<li><a href="http://ieeexplore.ieee.org/xpl/tocresult.jsp?isnumber=6155638" target="_blank" rel="noopener">IEEE Computer - ( Vol. 45 Issue 2 ) The CAP Theorem’s Growing Impact</a></li>
+<li><a href="https://arxiv.org/abs/1509.05393" target="_blank" rel="noopener">A Critique of the CAP Theorem</a><blockquote>
 <p>The CAP Theorem is a frequently cited impossibility result in distributed systems, especially among NoSQL distributed databases. In this paper we survey some of the confusion about the meaning of CAP, including inconsistencies and ambiguities in its definitions, and we highlight some problems in its formalization. CAP is often interpreted as proof that eventually consistent databases have better availability properties than strongly consistent databases; although there is some truth in this, we show that more careful reasoning is required. These problems cast doubt on the utility of CAP as a tool for reasoning about trade-offs in practical systems. As alternative to CAP, we propose a “delay-sensitivity” framework, which analyzes the sensitivity of operation latency to network delay, and which may help practitioners reason about the trade-offs between consistency guarantees and tolerance of network faults.</p>
 </blockquote>
 </li>
 </ul>
 <h2 id="关于物理时间"><a href="#关于物理时间" class="headerlink" title="关于物理时间"></a>关于物理时间</h2><ul>
-<li><a href="http://dl.acm.org/citation.cfm?id=2347750" target="_blank" rel="external">Toward higher precision - PTP协议 - CACM-2012-10</a></li>
-<li><a href="https://spectracom.com/sites/default/files/document-files/Time%20for%20Datacenters%20to%20Consider%20Time%20as%20a%20Service_WP12-101_A.pdf" target="_blank" rel="external">Time for Data Centers to Consider Time as a Service</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Global_Positioning_System" target="_blank" rel="external">GPS - Global Positioning System - wiki</a></li>
-<li><p><a href="http://www.beidou.gov.cn/attach/beidou/China&#39;s%20BeiDou%20Navigation%20Satellite%20System%28Chinese%29.pdf" target="_blank" rel="external">中国北斗卫星导航系统白皮书</a></p>
+<li><a href="http://dl.acm.org/citation.cfm?id=2347750" target="_blank" rel="noopener">Toward higher precision - PTP协议 - CACM-2012-10</a></li>
+<li><a href="https://spectracom.com/sites/default/files/document-files/Time%20for%20Datacenters%20to%20Consider%20Time%20as%20a%20Service_WP12-101_A.pdf" target="_blank" rel="noopener">Time for Data Centers to Consider Time as a Service</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Global_Positioning_System" target="_blank" rel="noopener">GPS - Global Positioning System - wiki</a></li>
+<li><p><a href="http://www.beidou.gov.cn/attach/beidou/China&#39;s%20BeiDou%20Navigation%20Satellite%20System%28Chinese%29.pdf" target="_blank" rel="noopener">中国北斗卫星导航系统白皮书</a></p>
 <blockquote>
 <p>正在运行的北斗二号系统发播B1I和B2I公开服务信号，免费向亚太地区提供公开服务。服务区为南北纬55度、东经55度到180度区域，定位精度优于10米，测速精度优于0.2米/秒，<strong>授时精度优于50纳秒</strong>。</p>
 </blockquote>
 </li>
-<li><p><a href="http://www.ucolick.org/~sla/leapsecs/timescales.html" target="_blank" rel="external">Time Scales</a></p>
+<li><p><a href="http://www.ucolick.org/~sla/leapsecs/timescales.html" target="_blank" rel="noopener">Time Scales</a></p>
 </li>
-<li><a href="http://gjss.ndrc.gov.cn/gzdtx/201309/t20130926_683874.html" target="_blank" rel="external">长短波授时系统</a></li>
+<li><a href="http://gjss.ndrc.gov.cn/gzdtx/201309/t20130926_683874.html" target="_blank" rel="noopener">长短波授时系统</a></li>
 </ul>
 <p>如果在万能的淘宝上搜“时钟同步服务器，GPS，北斗”，就会看到很多产品，价格不比一台服务器贵。比如下面的链接（免费的广告啊~~）<br>高精度的时间同步是一个系统工程。即便是局域网的范围，不是简单买一台NTP服务器，然后接到网络里就算完工了。当然，还是要看精度要求有多高，NTP的精度还是比较低的。<br>通过网络同步时间的问题在于计算机网络（以太网）尽力而为和多层协议带来的 <strong>固有的通信延迟不确定性</strong>。延迟大并不可怕，只要是稳定的延迟，就可以预先扣除，但延迟的不确定性就很难处理了。可能的方案是使用专用，没有任何协议的物理线路，就跟电力线路一样，延迟几乎没有波动。</p>
 <ul>
-<li><a href="http://www.syn029.com/h-index.html" target="_blank" rel="external">西安同步电子科技有限公司</a>，<a href="https://shop102437782.taobao.com/index.htm" target="_blank" rel="external">他们的淘宝店</a></li>
-<li><a href="http://www.jingtech.cn/col.jsp?id=130" target="_blank" rel="external">西安景驰电子科技有限公司</a>，<a href="https://zhuanlan.zhihu.com/p/21596625" target="_blank" rel="external">TS3200 系列GPS/BD 同步时钟 - 知乎专栏</a></li>
-<li><a href="http://www.bonzn.cn/col.jsp?id=105" target="_blank" rel="external">广州邦正电力科技有限公司</a>，</li>
+<li><a href="http://www.syn029.com/h-index.html" target="_blank" rel="noopener">西安同步电子科技有限公司</a>，<a href="https://shop102437782.taobao.com/index.htm" target="_blank" rel="noopener">他们的淘宝店</a></li>
+<li><a href="http://www.jingtech.cn/col.jsp?id=130" target="_blank" rel="noopener">西安景驰电子科技有限公司</a>，<a href="https://zhuanlan.zhihu.com/p/21596625" target="_blank" rel="noopener">TS3200 系列GPS/BD 同步时钟 - 知乎专栏</a></li>
+<li><a href="http://www.bonzn.cn/col.jsp?id=105" target="_blank" rel="noopener">广州邦正电力科技有限公司</a>，</li>
 </ul>
 <p>为什么2家都是西安的？不一定是巧合，很可能是因为中国科学院国家授时中心就在西安临潼。<br>只说GPS/北斗芯片的话，其实只有几十块钱，不但智能手机必备，现在比较流行的共享单车都装了这些定位芯片。当然，从一个GPS芯片到一个时钟同步服务器产品还是要有很多外围设备的，作为外行，就不深入讨论了。</p>
-<h2 id="Cloud-Spanner的相关报道"><a href="#Cloud-Spanner的相关报道" class="headerlink" title="Cloud Spanner的相关报道"></a>Cloud Spanner的相关报道</h2><p><a href="http://www.infoq.com/cn/news/2017/02/Google-Cloud-Spanner-hit-CAP" target="_blank" rel="external">Infoq - 谷歌新发布的分布式数据库服务，是要打破CAP定理了吗？</a><br><a href="http://www.infoq.com/cn/news/2017/03/google-cloud-spanner-beta" target="_blank" rel="external">Infoq - 谷歌对外发布了云Spanner Beta版</a></p>
+<h2 id="Cloud-Spanner的相关报道"><a href="#Cloud-Spanner的相关报道" class="headerlink" title="Cloud Spanner的相关报道"></a>Cloud Spanner的相关报道</h2><p><a href="http://www.infoq.com/cn/news/2017/02/Google-Cloud-Spanner-hit-CAP" target="_blank" rel="noopener">Infoq - 谷歌新发布的分布式数据库服务，是要打破CAP定理了吗？</a><br><a href="http://www.infoq.com/cn/news/2017/03/google-cloud-spanner-beta" target="_blank" rel="noopener">Infoq - 谷歌对外发布了云Spanner Beta版</a></p>
 <h2 id="分布式系统课程"><a href="#分布式系统课程" class="headerlink" title="分布式系统课程"></a>分布式系统课程</h2><ul>
-<li><a href="https://courses.cs.washington.edu/courses/cse552/13au/calendar/lecturelist.html" target="_blank" rel="external">Washington Univ. CSE552: Distributed and Parallel Systems - Fall 2013</a></li>
-<li><a href="http://nil.csail.mit.edu/6.824/2016/schedule.html" target="_blank" rel="external">MIT 6.824: Distributed Systems - Spring 2016</a></li>
-<li><a href="http://www.bigoh.net/wiki/index.php/Dis-alg" target="_blank" rel="external">分布式算法入门</a></li>
-<li><a href="https://www.somethingsimilar.com/2013/01/14/notes-on-distributed-systems-for-young-bloods/" target="_blank" rel="external">Notes on Distributed Systems for Young Bloods</a></li>
+<li><a href="https://courses.cs.washington.edu/courses/cse552/13au/calendar/lecturelist.html" target="_blank" rel="noopener">Washington Univ. CSE552: Distributed and Parallel Systems - Fall 2013</a></li>
+<li><a href="http://nil.csail.mit.edu/6.824/2016/schedule.html" target="_blank" rel="noopener">MIT 6.824: Distributed Systems - Spring 2016</a></li>
+<li><a href="http://www.bigoh.net/wiki/index.php/Dis-alg" target="_blank" rel="noopener">分布式算法入门</a></li>
+<li><a href="https://www.somethingsimilar.com/2013/01/14/notes-on-distributed-systems-for-young-bloods/" target="_blank" rel="noopener">Notes on Distributed Systems for Young Bloods</a></li>
 </ul>
 <hr>
 <h1 id="译文"><a href="#译文" class="headerlink" title="译文"></a>译文</h1><p>Spanner是Google的高可用的全球SQL数据库[CDE + 12：Spanner]。它管理着大规模的复制的数据。大规模既指数据量方面，又有事务量方面。它为写入其中的每项数据分配全局一致的实时时间戳，客户端可以在整个数据库上执行全局一致的读操作，而无需使用锁（译注：因为Spanner使用的是物理时间，而且是全球分布的，所以这里的全局既可以理解为逻辑上的整体，也可以理解为全球性的）。<br>CAP定理[Bre12]说，下面三个期望的属性中，你最多只能同时达到两个：</p>
@@ -154,7 +154,7 @@
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>Spanner合理地声称是一个“有效CA”系统。尽管运行在广域上，但它总是一致的，并达到了大于5个 9的可用性。与Chubby一样，同时达到CA在实践中是可能的，前提是像Google那样能控制整个网络，但这在广域上是罕见的。此外，还需要大量冗余的网络链路、处理相关故障的架构规划、以及非常细致的运维，特别是对于升级。如果还是不幸发生了运行中断，Spanner选择一致性而不是可用性。<br>Spanner使用两阶段提交来实现顺序一致性，它使用<code>TrueTime</code> 实现外部一致性、无锁的一致性读取、以及一致性快照。
  </p>
 <h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>特别感谢Spanner 和<code>TrueTime</code> 的专家：Andrew Fikes，Wilson Hsieh，和Peter Hochschild。 另外还要感谢 Brian Cooper，Kurt Rosenfeld，Chris Taylor，Susan Shepard，Sunil Mushran，Steve Middlekauff，Cliff Frey，Cian Cullinan，Robert Kubis，Deepti Srivastava，Sean Quinlan，Mike Burrows 和 Sebastian Kanthak。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[BK14] P. Bailis and K. Kingsbury. <a href="http://cacm.acm.org/magazines/2014/9/177925-the-network-is-reliable/abstract" target="_blank" rel="external">The Network is Reliable</a>, Communications of the ACM. Vol. 57 No. 9,<br>Pages 48-55. September 2014. Also: [<a href="https://aphyr.com/posts/288-the-network-is-reliable" target="_blank" rel="external">https://aphyr.com/posts/288-the-network-is-reliable</a>]<br>[Bre12] E. Brewer. <a href="https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed" target="_blank" rel="external">CAP Twelve Years Later: How the “Rules” Have Changed</a>, IEEE Computer, Vol. 45, Issue 2, February 2012. pp. 23–29. <a href="http://www.infoq.com/cn/articles/cap-twelve-years-later-how-the-rules-have-changed" target="_blank" rel="external">CAP理论十二年回顾：”规则”变了</a>（译注：这是本文作者之前的一篇文章）<br>[Bur06] M. Burrows. <a href="https://research.google.com/archive/chubby-osdi06.pdf" target="_blank" rel="external">The Chubby lock service for loosely-coupled distributed systems</a>. Proceedings of OSDI `06: Fourth Symposium on Operating System Design and Implementation, Seattle, WA, November 2006.<br>[CDE+12] J. Corbett, J. Dean, et. al.  Spanner: Google’s Globally-Distributed Database. Proceedings of OSDI ‘12: Tenth Symposium on Operating System Design and Implementation, Hollywood, CA, October, 2012. <a href="http://dblab.xmu.edu.cn/post/google-spanner/" target="_blank" rel="external">厦门大学计算机系 林子雨 老师的译文</a><br>[Hel16] P. Helland. <a href="http://queue.acm.org/detail.cfm?id=2953944" target="_blank" rel="external">Standing on Giant Distributed Shoulders: Farsighted Physicists of Yore were Danged  Smart!</a> ACM Queue, Vol. 14, Issue 2, March-April 2016.<br>[Lis91] B. Liskov. <a href="http://dl.acm.org/citation.cfm?id=112601" target="_blank" rel="external">Practical Uses of Synchronized Clocks in Distributed Systems</a>. ACM Principles of Distributed Computing (PODC). Montreal, Canada, August 1991.<br>[MHL+92] C. Mohan, D. Haderle, B. Lindsay, H. Pirahesh and P. Schwartz. <a href="http://dl.acm.org/citation.cfm?id=128770" target="_blank" rel="external">ARIES: A Transaction Recovery  Method Supporting Fine-Granularity Locking and Partial Rollbacks Using Write-Ahead Logging</a>. ACM Transactions on Database Systems, Vol. 17, No. 1, March 1992, pp. 94-162.<br>[Ree78] D. Reed. <a href="http://publications.csail.mit.edu/lcs/specpub.php?id=773" target="_blank" rel="external">Naming and Synchronization in a Decentralized Computer System</a>, PhD Dissertation, MIT Laboratory for Computer Science, Technical Report MIT-LCS-TR-205. October 1978 [See Section 6.3 for list of versions with timestamps]</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[BK14] P. Bailis and K. Kingsbury. <a href="http://cacm.acm.org/magazines/2014/9/177925-the-network-is-reliable/abstract" target="_blank" rel="noopener">The Network is Reliable</a>, Communications of the ACM. Vol. 57 No. 9,<br>Pages 48-55. September 2014. Also: [<a href="https://aphyr.com/posts/288-the-network-is-reliable" target="_blank" rel="noopener">https://aphyr.com/posts/288-the-network-is-reliable</a>]<br>[Bre12] E. Brewer. <a href="https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed" target="_blank" rel="noopener">CAP Twelve Years Later: How the “Rules” Have Changed</a>, IEEE Computer, Vol. 45, Issue 2, February 2012. pp. 23—29. <a href="http://www.infoq.com/cn/articles/cap-twelve-years-later-how-the-rules-have-changed" target="_blank" rel="noopener">CAP理论十二年回顾：”规则”变了</a>（译注：这是本文作者之前的一篇文章）<br>[Bur06] M. Burrows. <a href="https://research.google.com/archive/chubby-osdi06.pdf" target="_blank" rel="noopener">The Chubby lock service for loosely-coupled distributed systems</a>. Proceedings of OSDI `06: Fourth Symposium on Operating System Design and Implementation, Seattle, WA, November 2006.<br>[CDE+12] J. Corbett, J. Dean, et. al.  Spanner: Google’s Globally-Distributed Database. Proceedings of OSDI ‘12: Tenth Symposium on Operating System Design and Implementation, Hollywood, CA, October, 2012. <a href="http://dblab.xmu.edu.cn/post/google-spanner/" target="_blank" rel="noopener">厦门大学计算机系 林子雨 老师的译文</a><br>[Hel16] P. Helland. <a href="http://queue.acm.org/detail.cfm?id=2953944" target="_blank" rel="noopener">Standing on Giant Distributed Shoulders: Farsighted Physicists of Yore were Danged  Smart!</a> ACM Queue, Vol. 14, Issue 2, March-April 2016.<br>[Lis91] B. Liskov. <a href="http://dl.acm.org/citation.cfm?id=112601" target="_blank" rel="noopener">Practical Uses of Synchronized Clocks in Distributed Systems</a>. ACM Principles of Distributed Computing (PODC). Montreal, Canada, August 1991.<br>[MHL+92] C. Mohan, D. Haderle, B. Lindsay, H. Pirahesh and P. Schwartz. <a href="http://dl.acm.org/citation.cfm?id=128770" target="_blank" rel="noopener">ARIES: A Transaction Recovery  Method Supporting Fine-Granularity Locking and Partial Rollbacks Using Write-Ahead Logging</a>. ACM Transactions on Database Systems, Vol. 17, No. 1, March 1992, pp. 94-162.<br>[Ree78] D. Reed. <a href="http://publications.csail.mit.edu/lcs/specpub.php?id=773" target="_blank" rel="noopener">Naming and Synchronization in a Decentralized Computer System</a>, PhD Dissertation, MIT Laboratory for Computer Science, Technical Report MIT-LCS-TR-205. October 1978 [See Section 6.3 for list of versions with timestamps]</p>
 <hr>
 <p><img src="/img/spanner-books.jpg" alt=""></p>
 
@@ -194,17 +194,17 @@
   	<ul>
   		<li><a href="/"><i class="icon icon-home"></i></a></li>
   		
-			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+			<li><a href="/archives"><i class="icon icon-bars"></i></a></li>
   		
   		
   			<li><a href="https://github.com/ying-zhang" target="_blank"><i class="icon icon-github"></i></a></li>
   		
 			
-  			<li><a href="/atom.xml" target="_blank"><i class="icon icon-tag"></i></a></li>
+  			<li><a href="/atom.xml" target="_blank"><i class="icon icon-rss"></i></a></li>
   		
   	</ul>
   </nav>
-  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+  <a id="go-top" href="#"><i class="icon icon-up-bold"></i></a>
 </aside>
       </div>
       <footer id="footer">
@@ -250,7 +250,7 @@
 
   </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+  MathJax.Hub.Config("");
 </script>
 
 <script type="text/x-mathjax-config">
@@ -262,7 +262,7 @@
   });
 </script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->

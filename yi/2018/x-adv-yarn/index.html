@@ -59,10 +59,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>YARN资源管理器的研究进展（Advancements in YARN Resource Manager）是大数据技术百科（Encyclopedia of Big Data Technologies，这本书的其它条目质量较差）中的一个条目，是由微软的员工编写的对YARN进展比较全面的综述。<br>YARN-1011是YARN关于资源超售的一个JIRA项，是上面条目提到的一个参考文献，亦翻译后作为附录。</p>
-<p>英文全文：<a href="https://www.microsoft.com/en-us/research/uploads/prod/2018/02/yarn-big-data-encyclopedia-2018.pdf" target="_blank" rel="external">https://www.microsoft.com/en-us/research/uploads/prod/2018/02/yarn-big-data-encyclopedia-2018.pdf</a><br>译文全文：[<a href="https://ying-zhang.github.io/doc/Adv_in_YARN_CN_Ying_201806.pdf">https://ying-zhang.github.io/doc/Adv_in_YARN_CN_Ying_201806.pdf</a>]</p>
+<p>英文全文：<a href="https://www.microsoft.com/en-us/research/uploads/prod/2018/02/yarn-big-data-encyclopedia-2018.pdf" target="_blank" rel="noopener">https://www.microsoft.com/en-us/research/uploads/prod/2018/02/yarn-big-data-encyclopedia-2018.pdf</a><br>译文全文：[<a href="https://ying-zhang.github.io/doc/Adv_in_YARN_CN_Ying_201806.pdf">https://ying-zhang.github.io/doc/Adv_in_YARN_CN_Ying_201806.pdf</a>]</p>
 <a id="more"></a>
 <hr>
-<h1 id="Advancements-in-YARN-Resource-Manager"><a href="#Advancements-in-YARN-Resource-Manager" class="headerlink" title="Advancements in YARN Resource Manager"></a>Advancements in YARN Resource Manager</h1><h1 id="YARN资源管理器的研究进展"><a href="#YARN资源管理器的研究进展" class="headerlink" title="YARN资源管理器的研究进展"></a>YARN资源管理器的研究进展</h1><p>Konstantinos Karanasos，Arun Suresh, Chris Douglas， 微软<br>        译者：Ying 2018-06<br>Encyclopedia of Big Data Technologies， <a href="https://doi.org/10.1007/978-3-319-63962-8_207-1" target="_blank" rel="external">https://doi.org/10.1007/978-3-319-63962-8_207-1</a></p>
+<h1 id="Advancements-in-YARN-Resource-Manager"><a href="#Advancements-in-YARN-Resource-Manager" class="headerlink" title="Advancements in YARN Resource Manager"></a>Advancements in YARN Resource Manager</h1><h1 id="YARN资源管理器的研究进展"><a href="#YARN资源管理器的研究进展" class="headerlink" title="YARN资源管理器的研究进展"></a>YARN资源管理器的研究进展</h1><p>Konstantinos Karanasos，Arun Suresh, Chris Douglas， 微软<br>        译者：Ying 2018-06<br>Encyclopedia of Big Data Technologies， <a href="https://doi.org/10.1007/978-3-319-63962-8_207-1" target="_blank" rel="noopener">https://doi.org/10.1007/978-3-319-63962-8_207-1</a></p>
 <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>YARN是目前流行的共享集群作业调度和资源管理框架之一。本条目将重点介绍自YARN初始版本推出之后增加的新功能。</p>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Apache Hadoop [Apache Hadoop]是广泛采用的MapReduce实现之一 [Dean]。它改变了企业分析海量数据的方式。它可以在数千台机器组成的集群上并行处理数据，不必再让用户来实现复杂的通信模式和容错机制。</p>
 <p>随着逐渐流行， 虽然Hadoop针对MapReduce设计的资源模型比较灵活，但仍无法适合所有的应用，特别是要求低延时或迭代计算的应用。这促使将集群资源管理基础模块从特定的编程模型中解耦出来，从而产生了YARN  [Vavilapalli] 。YARN负责管理集群资源，为应用提供请求资源的通用接口，从而允许将多个应用（包括MapReduce）部署在单个集群上，共享同一个资源管理层。</p>
@@ -133,7 +133,7 @@
 <p>在RM和各NM以服务方式运行的收集器将数据收集起来。每个作业的AM将数据发布到其节点上NM的收集器。同样，每个容器将数据推送到所在节点NM的收集器，而RM将数据发布到其专用收集器。TS读取服务是专用的独立实例，通过REST API提供查询。默认使用Apache HBase [Apache HBase]作为后端存储，它可以扩展到大量的数据和读/写操作。</p>
 <h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>YARN于2011年底在Apache Hadoop中引入，旨在打破Hadoop和MapReduce之间的紧密关系，并允许在同一个资源管理器上部署通用应用。目前，YARN已经发展为一个完备的生产级资源管理器，该管理器已部署到数万台机器的共享集群上。它可处理从批处理分析、流式计算、机器学习工作负载、以及低延迟服务等应用，同时实现高资源利用率，并支持SLO和可预测的生产作业负载。每月进行数百个贡献的社区对YARN是至关重要的。</p>
 <p>[Apache Hadoop] Apache Hadoop (2017) <strong>Apache Hadoop</strong>. <code>http://hadoop.apache.org</code><br>[Apache HBase] Apache HBase (2017) <strong>Apache HBase</strong>. <code>http://hbase.apache.org</code><br>[Apache Slider] Apache Slider (2017) <strong>Apache Slider (incubating)</strong>. <code>http://slider.incubator.apache.org</code><br>[Burd] Burd R, Sharma H, Sakalanaga S (2017) <strong>Lessons learned from scaling YARN to 40 K machines in a multitenancy environment</strong>. In: DataWorks Summit, San Jose<br>[Curino] Curino C, Difallah DE, Douglas C, Krishnan S, Ramakrishnan R, Rao S (2014) <strong>Reservation-based scheduling: if you’re late don’t blame us!</strong> In: SoCC<br>[Dean] Dean J, Ghemawat S (2004) <strong>MapReduce: simplified data processing on large clusters</strong>. In: USENIX OSDI<br>[Distributed scheduling] Distributed scheduling (2017) <strong>Extend YARN to support distributed scheduling</strong>. <code>https://issues.apache.org/jira/browse/YARN-2877</code><br>[Ghodsi] Ghodsi A, Zaharia M, Hindman B, Konwinski A, Shenker S, Stoica I (2011) <strong>Dominant resource fairness: fair allocation of multiple resource types</strong>. In: USENIX NSDI<br>[HDFS Federation] HDFS Federation (2017) <strong>Router-based HDFS federation</strong>. <code>https://issues.apache.org/jira/browse/HDFS-10467</code><br>[Jyothi] Jyothi SA, Curino C, Menache I, Narayanamurthy SM, Tumanov A, Yaniv J, Mavlyutov R, Goiri I, Krishnan S, Kulkarni J, Rao S (2016) <strong>Morpheus: towards automated slos for enterprise clusters</strong>. In: USENIX OSDI<br>[Karanasos] Karanasos K, Rao S, Curino C, Douglas C, Chaliparambil K, Fumarola GM, Heddaya S, Ramakrishnan R, Sakalanaga S (2015) <strong>Mercury: hybrid centralized and distributed scheduling in large shared clusters</strong>. In: USENIX ATC<br>[Node Labels] Node Labels (2017) <strong>Allow for (admin) labels on nodes and resource-requests</strong>. <code>https://issues.apache.org/jira/browse/YARN-796</code><br>[Opportunistic Scheduling] Opportunistic Scheduling (2017) <strong>Scheduling of opportunistic containers through YARN RM</strong>. <code>https://issues.apache.org/jira/browse/YARN-5220</code><br>[OrgQueue] OrgQueue (2017) <strong>OrgQueue for easy capacitysched uler queue configuration management</strong>. <code>https://issues.apache.org/jira/browse/YARN-5734</code><br>[Placement Constraints] Placement Constraints (2017) <strong>Rich placement constraints in YARN</strong>. <code>https://issues.apache.org/jira/browse/YARN-6592</code><br>[Rasley] Rasley J, Karanasos K, Kandula S, Fonseca R, Vojnovic M, Rao S (2016) <strong>Efficient queue management for cluster scheduling</strong>. In: EuroSys<br>[Resource Profiles] Resource Profiles (2017) <strong>Extend the YARN resource model for easier resource-type management and profiles</strong>. <code>https://issues.apache.org/jira/browse/YARN-3926</code><br>[Utilization-Based Scheduling] Utilization-Based Scheduling (2017) <strong>Schedule containers based on utilization of currently allocated containers</strong>. <code>https://issues.apache.org/jira/browse/YARN-1011</code><br>[Vavilapalli] Vavilapalli VK, Murthy AC, Douglas C, Agarwal S, Konar M, Evans R, Graves T, Lowe J, Shah H, Seth S, Saha B, Curino C, O’Malley O, Radia S, Reed B, Baldeschwieler E (2013) <strong>Apache Hadoop YARN: yet another resource negotiator</strong>. In: SoCC<br>[YARN Federation] YARN Federation (2017) <strong>Enable YARN RM scale out via federation using multiple RMs</strong>. <code>https://issues.apache.org/jira/browse/YARN-2915</code><br>[YARN JIRA] YARN JIRA (2017) <strong>Apache JIRA issue tracker for YARN</strong>. <code>https://issues.apache.org/jira/browse/YARN</code><br>[YARN TS v2] YARN TS v2 (2017) <strong>YARN timeline service v2</strong>. <code>https://issues.apache.org/jira/browse/YARN-5355</code></p>
-<h1 id="附录：资源超售YARN-1011"><a href="#附录：资源超售YARN-1011" class="headerlink" title="附录：资源超售YARN-1011"></a>附录：资源超售YARN-1011</h1><p>Karthik Kambatla, Haibo Chen，2017-05-30<br><a href="https://issues.apache.org/jira/browse/YARN-1011" target="_blank" rel="external">https://issues.apache.org/jira/browse/YARN-1011</a><br><a href="https://issues.apache.org/jira/secure/attachment/12874299/yarn-1011-design-v3.pdf" target="_blank" rel="external">https://issues.apache.org/jira/secure/attachment/12874299/yarn-1011-design-v3.pdf</a></p>
+<h1 id="附录：资源超售YARN-1011"><a href="#附录：资源超售YARN-1011" class="headerlink" title="附录：资源超售YARN-1011"></a>附录：资源超售YARN-1011</h1><p>Karthik Kambatla, Haibo Chen，2017-05-30<br><a href="https://issues.apache.org/jira/browse/YARN-1011" target="_blank" rel="noopener">https://issues.apache.org/jira/browse/YARN-1011</a><br><a href="https://issues.apache.org/jira/secure/attachment/12874299/yarn-1011-design-v3.pdf" target="_blank" rel="noopener">https://issues.apache.org/jira/secure/attachment/12874299/yarn-1011-design-v3.pdf</a></p>
 <h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><p>Yarn根据群集节点的可用资源来为作业分配资源。目前，节点可用资源的计算方法为其“容量”（由<code>yarn.nodemanager.resource.*</code> 配置项确定）减去当前节点上已经分配给容器的资源。容器的资源配额是该容器可以使用的资源额度的上限，其大小是应用请求的。</p>
 <p>在实践中，用户对资源的估计是保守的，原因有：（1）避免任务失败;（2）因为使用了更高级别的抽象（例如Hive），不关注生成的MR / Tez / Spark作业的资源需求。</p>
 <h1 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h1><p>通过使用机会型容器（见YARN-2882，<code>https://issues.apache.org/jira/browse/YARN-2882</code>），将已分配但未使用的资源投机地分配给等待中的请求。这会导致节点资源超售：即节点容纳的容器总额超过了节点的容量。超售的程度应该是可配置的。</p>
@@ -194,6 +194,15 @@
     
 <nav id="article-nav">
   
+    <a href="/cloud/2018/gsac18b/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          阿里全球调度算法大赛 GSAC 2018 总结 - 2
+        
+      </div>
+    </a>
+  
   
     <a href="/misc/2018/book-list/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
@@ -211,17 +220,17 @@
   	<ul>
   		<li><a href="/"><i class="icon icon-home"></i></a></li>
   		
-			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+			<li><a href="/archives"><i class="icon icon-bars"></i></a></li>
   		
   		
   			<li><a href="https://github.com/ying-zhang" target="_blank"><i class="icon icon-github"></i></a></li>
   		
 			
-  			<li><a href="/atom.xml" target="_blank"><i class="icon icon-tag"></i></a></li>
+  			<li><a href="/atom.xml" target="_blank"><i class="icon icon-rss"></i></a></li>
   		
   	</ul>
   </nav>
-  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+  <a id="go-top" href="#"><i class="icon icon-up-bold"></i></a>
 </aside>
       </div>
       <footer id="footer">
@@ -267,7 +276,7 @@
 
   </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+  MathJax.Hub.Config("");
 </script>
 
 <script type="text/x-mathjax-config">
@@ -279,7 +288,7 @@
   });
 </script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->

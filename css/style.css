@@ -1056,8 +1056,8 @@ pre .javascript .function {
     -moz-osx-font-smoothing: grayscale;
     font-size: 20px;
   }
-  #sidebar a#go-top i.icon.icon-up:before {
-    content: "\e606";
+  #sidebar a#go-top i.icon.icon-up-bold:before {
+    content: "\64";
   }
   #sidebar .menus {
     padding-top: 10px;
@@ -1084,15 +1084,15 @@ pre .javascript .function {
     font-size: 20px;
   }
   #sidebar .menus ul li a i.icon.icon-home:before {
-    content: "\e600";
+    content: "\61";
   }
-  #sidebar .menus ul li a i.icon.icon-fenlei:before {
-    content: "\e603";
+  #sidebar .menus ul li a i.icon.icon-bars:before {
+    content: "\62";
   }
-  #sidebar .menus ul li a i.icon.icon-tag:before {
-    content: "\e601";
+  #sidebar .menus ul li a i.icon.icon-rss:before {
+    content: "\66";
   }
   #sidebar .menus ul li a i.icon.icon-github:before {
-    content: "\e604";
+    content: "\63";
   }
 }

@@ -64,6 +64,7 @@
 <h1 id="虚拟硬盘"><a href="#虚拟硬盘" class="headerlink" title="虚拟硬盘"></a>虚拟硬盘</h1><p>硬盘被称为 <strong>块设备</strong>，传统的机械硬盘最小的读写单元是一个扇区（sector），而文件系统（FS）在引入了逻辑存储块（block），可能与物理扇区大小相同，也可以是扇区的整数倍。一个文件对应了若干block，多个文件又以文件夹的形式组成一棵树，这是FS的两层结构。</p>
 <p>虚拟硬盘只需要模拟出扇区结构就可以了，上层的逻辑块和文件树由VM里的Guest OS来负责。可以简单地创建一个空白的大文件（raw格式）来作为Guest OS的虚拟硬盘，Guest OS再将其格式化为某种FS。<br>虚拟硬盘在Host上是一个文件（vhd）或若干个相关的文件（vmdk），而其中又有Guest OS创建的文件。</p>
 <p>下面是几种VMM的虚拟硬盘格式。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -95,9 +96,10 @@
 </tr>
 </tbody>
 </table>
-<p>各种虚拟硬盘格式大同小异，其中<a href="https://en.wikipedia.org/wiki/VHD_&#40;file_format&#41;" target="_blank" rel="external">vhd格式</a>不仅在vbox和hyper-v中得到支持，Windows7及以后版本的Windows系统中也内置了对它支持，所以用vbox创建VM建议选择vhd格式。Win7及以后的版本内置的<code>diskpart</code>工具（下面会介绍）可以创建vhd的差分镜像，Win8及以后版本可以通过双击挂载vhd镜像。如果vhd镜像的分区是windows支持的NTFS等格式，就可以在不用启动VM的情况下直接读写vhd，这就像把一台机器（VM）的硬盘拆下来拿到其它机器（Host）读写，然后再装回去。</p>
+</div>
+<p>各种虚拟硬盘格式大同小异，其中<a href="https://en.wikipedia.org/wiki/VHD_&#40;file_format&#41;" target="_blank" rel="noopener">vhd格式</a>不仅在vbox和hyper-v中得到支持，Windows7及以后版本的Windows系统中也内置了对它支持，所以用vbox创建VM建议选择vhd格式。Win7及以后的版本内置的<code>diskpart</code>工具（下面会介绍）可以创建vhd的差分镜像，Win8及以后版本可以通过双击挂载vhd镜像。如果vhd镜像的分区是windows支持的NTFS等格式，就可以在不用启动VM的情况下直接读写vhd，这就像把一台机器（VM）的硬盘拆下来拿到其它机器（Host）读写，然后再装回去。</p>
 <p>VMM为了管理虚拟硬盘，还会在虚拟硬盘文件中增加一些元数据信息，比如作为硬盘唯一标识的GUID。在vbox中，如果直接复制一个虚拟硬盘镜像挂载到其它的VM，就会报告已经存在了相同GUID的虚拟硬盘。<br>重置一个虚拟硬盘GUID可以执行下面的命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">VBoxManage internalcommands sethduuid &quot;/path/file.vhd&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">VBoxManage internalcommands sethduuid &quot;/path/file.vhd&quot;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>vbox支持多种虚拟硬盘格式，使用<code>VBoxManage.exe</code>这个命令行工具还可以进行不同虚拟硬盘格式之间的转换，启停VM等很多操作。<br>VMware可以将物理硬盘转换为虚拟硬盘，这样实际上是把一个物理机器（部分地）克隆到了VM（PM-&gt;VM）。<br>VMware还可以将一个物理硬盘分区直接加载给VM，这样会稍许提高一下访问硬盘的性能。</p>
 </blockquote>
@@ -117,7 +119,7 @@
 <h1 id="差分硬盘"><a href="#差分硬盘" class="headerlink" title="差分硬盘"></a>差分硬盘</h1><p>虽然可以预先制作一个标准VM镜像，然后批量拷贝得到很多VM，但VM运行后会在虚拟硬盘中写入不同的数据，所以每个VM的虚拟硬盘内的数据都是不同的，迁移时必须要分别拷贝。即便是给VM添加两个虚拟硬盘，一个OS（系统盘），另一个空白硬盘专门保存用户数据（数据盘），还是难以避免Guest OS在系统盘修改文件数据。</p>
 <p>差分硬盘的思路类似内存管理中的copy on write (COW) 技术。基于父虚拟硬盘创建一个差分硬盘（子盘），VM挂载子盘后，看上去跟父盘完全一样，只是后续增删的数据都是保存在子盘上的。</p>
 <p>子盘还可以再继续创建差分盘（孙盘），这样子子孙孙 <strong>纵向</strong> 延续下去。比如vhd可以支持创建127代，而且 <strong>每代差分硬盘的性能基本一致，不受代数层次的影响</strong>。另外，一个父盘还可以有多个子盘，也就是 <strong>横向</strong> 扩展，同一个父盘下面生成子盘的个数没有限制，因为父子关系信息，即父盘的位置和GUID，只保存在子盘里。横向和纵向的差分盘可能形成一棵树。下面就是VMware的快照管理器截图（快照实际上包括虚拟硬盘快照和VM配置快照两部分，显然硬盘快照是占大头的部分）。<img src="/img/vmware-snapshot.png" alt=""></p>
-<p>差分硬盘相比普通虚拟硬盘在性能上会有一点损失，但给运维带来的便利是很大的。微软有一个关于vhd在windows server 2008和2008 R2多种应用场景下的<a href="http://go.microsoft.com/fwlink/p/?LinkId=186519" target="_blank" rel="external">性能测试的文档</a>，包括物理硬盘 vs 固定分配的vhd vs 动态分配的vhd vs 差分vhd。结果是动态分配的vhd性能下降比较明显，固定分配的vhd和差分vhd的性能都接近物理硬盘。</p>
+<p>差分硬盘相比普通虚拟硬盘在性能上会有一点损失，但给运维带来的便利是很大的。微软有一个关于vhd在windows server 2008和2008 R2多种应用场景下的<a href="http://go.microsoft.com/fwlink/p/?LinkId=186519" target="_blank" rel="noopener">性能测试的文档</a>，包括物理硬盘 vs 固定分配的vhd vs 动态分配的vhd vs 差分vhd。结果是动态分配的vhd性能下降比较明显，固定分配的vhd和差分vhd的性能都接近物理硬盘。</p>
 <p>创建一个差分硬盘基本不到1秒钟，于是就可以实现秒级创建/克隆/离线迁移VM，秒级创建快照，克隆是针对多个VM，而快照是针对某一个VM的。<br>理论上来说，所有VM公用的父虚拟硬盘可以只保存一个，会减少很多原来虚拟硬盘占用的实际存储空间，当然这个父盘需要保存在可以远程访问的共享存储上，一般是samba/cifs或者NFS共享目录。</p>
 <h1 id="快照和克隆"><a href="#快照和克隆" class="headerlink" title="快照和克隆"></a><strong>快照和克隆</strong></h1><p>上面截图是VMware的快照功能，可以创建出一棵快照树。VMware这个快照管理器中</p>
 <blockquote>
@@ -132,9 +134,9 @@
 <p>随之而来的是基准镜像的管理问题，因为基准镜像也不是一成不变的，其中的软件或者用户应用/数据可能需要更新，这一般都是通过在VM里执行系统维护命令来实现的。基准镜像也不只有一个，为了减少重复操作，应该为常见的功能特征都创建好基准镜像，甚至实现开箱可用的目标。镜像管理要给镜像关联尽可能详细的描述信息，让开发人员方便地找的合适的镜像，避免发明轮子。从基础镜像出发，相当于IaaS的模式，而从一个安装和配置了特定功能的镜像开始，则相当于提升到PaaS的层次了。</p>
 <p>Openstack 中的Glance模块是镜像管理模块，vagrant使用的.box也算是一种简单的镜像管理方案，但与docker的镜像管理功能相比还有一定的差距。</p>
 <h1 id="docker的镜像，容器"><a href="#docker的镜像，容器" class="headerlink" title="docker的镜像，容器"></a>docker的镜像，容器</h1><p>docker一开始就通过公共镜像仓库docker hub和私有仓库docker registery，以及<code>build</code>，<code>pull</code>，<code>push</code>命令内置了镜像管理功能。</p>
-<p>docker为实现镜像管理采用了类似于差分硬盘的<a href="http://coolshell.cn/articles/17061.html" target="_blank" rel="external">aufs文件系统</a>。aufs是一个虚拟文件系统，是在某个实际的底层文件系统上重新组织的虚拟文件视图，aufs并不处理底层的硬盘数据块，只是把多个主机上已经存在的不同目录分层次挂载到同一个虚拟的目录下，上层会覆盖下层的同名文件，不同名的文件则会相安无事，这样每个层就类似于差分硬盘的一个子盘。然而aufs是在文件层次实现的，而VM的差分硬盘则是在更底层的数据块层实现的。<br>docker基于镜像创建容器container，容器类似于虚拟机实例，有创建、启动、运行、暂停、停止的生命周期。镜像的层是只读的，容器会重用这些层，然后在最上面新创建一个可读写的层。<br>通过<code>docker commit</code>命令，可以将容器固化成镜像。<br><a name="docker-image"></a><br>docker的镜像管理还有一些不足：</p>
+<p>docker为实现镜像管理采用了类似于差分硬盘的<a href="http://coolshell.cn/articles/17061.html" target="_blank" rel="noopener">aufs文件系统</a>。aufs是一个虚拟文件系统，是在某个实际的底层文件系统上重新组织的虚拟文件视图，aufs并不处理底层的硬盘数据块，只是把多个主机上已经存在的不同目录分层次挂载到同一个虚拟的目录下，上层会覆盖下层的同名文件，不同名的文件则会相安无事，这样每个层就类似于差分硬盘的一个子盘。然而aufs是在文件层次实现的，而VM的差分硬盘则是在更底层的数据块层实现的。<br>docker基于镜像创建容器container，容器类似于虚拟机实例，有创建、启动、运行、暂停、停止的生命周期。镜像的层是只读的，容器会重用这些层，然后在最上面新创建一个可读写的层。<br>通过<code>docker commit</code>命令，可以将容器固化成镜像。<br><a name="docker-image"></a><br>docker的镜像管理还有一些不足：</p>
 <ul>
-<li>虽然docker会管理单个Host下的镜像，利用graph功能重用已有的镜像层，但每个Host还是有重复的镜像拷贝。虚拟机为了实现在线迁移，要求VM镜像保存在一个共享目录，恰好实现了部分的去重效果。不过docker有私有的仓库，而且能跟共享目录结合起来就好了。<a href="https://www.usenix.org/node/194431" target="_blank" rel="external">FAST16 - Slacker: Fast Distribution with Lazy Docker Containers</a> 这篇文章为了加速Docker容器的启动速度，采用了集中的共享存储镜像仓库和惰性加载镜像的方式，只加载当前使用的镜像到本地，与我们的思路很相近了。另外，Docker镜像分层的结构还可以更精细，以提高重用的可能。</li>
+<li>虽然docker会管理单个Host下的镜像，利用graph功能重用已有的镜像层，但每个Host还是有重复的镜像拷贝。虚拟机为了实现在线迁移，要求VM镜像保存在一个共享目录，恰好实现了部分的去重效果。不过docker有私有的仓库，而且能跟共享目录结合起来就好了。<a href="https://www.usenix.org/node/194431" target="_blank" rel="noopener">FAST16 - Slacker: Fast Distribution with Lazy Docker Containers</a> 这篇文章为了加速Docker容器的启动速度，采用了集中的共享存储镜像仓库和惰性加载镜像的方式，只加载当前使用的镜像到本地，与我们的思路很相近了。另外，Docker镜像分层的结构还可以更精细，以提高重用的可能。</li>
 <li>从dockerfile构造镜像时，每行<code>RUN</code>命令对应一层镜像，需要注意避免分层太多，而一个<code>RUN</code>命令太复杂又会限制了重用镜像的可能，如果能够 <strong>显示地指定分层点</strong> 可能会好些，这也算是镜像分层结构精细化的一部分。</li>
 <li>从dockerfile构造镜像也不是完全可重现的，如果基于同一个dockerfile的2次构建相隔了比较长的时间，而dockerfile中又要从外部获取应用或数据，比如<code>apt</code>安装软件，有可能安装的软件版本就不同了，而且这还涉及到层的重用。docker目前已经通过计算镜像各层内文件的内容的Hash来唯一地确定该层，部分缓解了这一问题。</li>
 </ul>
@@ -142,7 +144,7 @@
 <p>docker官方建议开发人员应尽量避免通过<code>docker exec</code>或<code>ssh</code>进入容器执行操作，而应通过dockerfile将所有操作<code>build</code>到镜像中。这样的好处是所有的操作都在dockerfile中，从而可以被版本管理系统跟踪。对VM的操作一般是经chef，puppet，ansible或salt这类自动化工具，在多个VM上批量执行的。自动化工具的问题是每个VM都需要重复执行，不同VM执行可能会产生错误或不同的结果，而dockerfile只要build一次，然后基于镜像创建容器即可，能更好的保证一致性，而且节约了重复执行的时间和网络流量（没有缓存的情况下）。<br>有人将VM比喻为宠物：一个Host只能支持若干个VM，所以开发人员都小心翼翼地像宠物一样对待VM；而一个Host可以支持多得多的容器，对待容器就像家畜一样，生死都不足惜。</p>
 <p><a name="win-vhd-boot"></a></p>
 <h1 id="Windows的diskpart工具"><a href="#Windows的diskpart工具" class="headerlink" title="Windows的diskpart工具"></a><strong>Windows的diskpart工具</strong></h1><p>因为曾被vbox的“恢复”和“删除”搞晕，所以之前都是用windows的<code>diskpart</code>来创建差分硬盘，然后重新设置VM的硬盘，使用下面的命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">C:\&gt;diskpart</div><div class="line"></div><div class="line">DISKPART&gt; create vdisk file=c:\diff.vhd parent=c:\parent.vhd</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\&gt;diskpart</span><br><span class="line"></span><br><span class="line">DISKPART&gt; create vdisk file=c:\diff.vhd parent=c:\parent.vhd</span><br></pre></td></tr></table></figure>
 <h1 id="Windows从VHD启动实现极速快照和恢复"><a href="#Windows从VHD启动实现极速快照和恢复" class="headerlink" title="Windows从VHD启动实现极速快照和恢复"></a><strong>Windows从VHD启动实现极速快照和恢复</strong></h1><p>Windows对vhd的内置支持远不止创建，挂载。最大的特色是支持从vhd启动（vhd native boot）：就是说把windows系统安装到一个vhd中，向普通硬盘分区一样从这个vhd启动windows。</p>
 <ul>
 <li>一种做法是把windows安装文件写入vhd中，然后将其加入BCD启动项，重启后系统会安装vhd在内。</li>
@@ -150,12 +152,12 @@
 <li>还有一种做法，将已经安装在物理硬盘上的系统用ghost克隆到vhd上，这需要在另一个windows系统或PE下进行，然后添加这个vhd的启动项到BCD。</li>
 </ul>
 <p>vhd加上差分硬盘功能，就可以实现windows的快速恢复了。具体的一种做法是基于一个父vhd创建两个差分vhd，分别称为<code>Current.vhd</code>和<code>Recovery.vhd</code>，分别添加这两个差分vhd的启动项为 <strong>Current</strong> 和 <strong>Recovery</strong>，这样就相当于已经安装了两个windows系统。正常使用 <strong>Current</strong> 系统，需要恢复时重启到 <strong>Recovery</strong> 系统，删除原来的<code>Current.vhd</code>，然后再基于父vhd创建一个新的差分vhd并命名为<code>Current.vhd</code>，再重启到 <strong>Current</strong> 系统，就完成了系统恢复。其中Recovery系统不是必须的，因为只需要能够进行简单的文件操作，用一个PE系统代替也可以。</p>
-<p>系统盘的文件布局如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">C:.</div><div class="line">│  Win8-Current.vhd    #正常工作系统</div><div class="line">│  Win8-Recovery.vhd   #恢复用系统</div><div class="line">│  Win8.vhd            #父vhd</div><div class="line">│  bootmgr             #启动管理器  </div><div class="line">└─boot                #系统启动相关文件</div><div class="line">        bcd</div><div class="line">        memtest.exe</div><div class="line">        ...</div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>系统盘的文件布局如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:.</span><br><span class="line">│  Win8-Current.vhd    #正常工作系统</span><br><span class="line">│  Win8-Recovery.vhd   #恢复用系统</span><br><span class="line">│  Win8.vhd            #父vhd</span><br><span class="line">│  bootmgr             #启动管理器  </span><br><span class="line">└─boot                #系统启动相关文件</span><br><span class="line">        bcd</span><br><span class="line">        memtest.exe</span><br><span class="line">        ...</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 <p><code>bootice</code>是一个操作vhd和系统启动项的小工具。此外还有<code>EasyBCD</code>和一些PE工具。当然，可以直接使用Windows内置的命令行工具<code>bcdboot</code>和<code>bcdedit</code>。</p>
 <p>Linux <strong>还没有</strong> 类似 vhd native boot的功能。虽然grub支持ramdisk或iso启动项，但功能上还是有些差距。<br>最近推出的CoreOS采用了双分区滚动升级的做法，实现了类似的功能，不过需要占用两倍的系统存储空间（没有差分），好在CoreOS本身比较精简。</p>
 <p>前面提到可以将物理硬盘转换成虚拟硬盘，相当于实现了从物理机到虚拟机的转换 PM -&gt; VM；而 vhd native boot则相当于从 VM -&gt; PM。</p>
 <hr>
-<p>这个介绍数据中心的<a href="http://v.youku.com/v_show/id_XMTMyMTI1ODQ4NA==.html" target="_blank" rel="external">视频</a> 里面有一段关于替换故障硬盘的细节值得注意。服务器的CPU，内存，硬盘和网卡 这几个主要部件里，因为硬盘是机械部件，而且一直在运转，不像普通机器大部分时间关机或休眠，所以是最容易出故障的，换硬盘应该是数据中心的日常维护工作了。 即便升级成没有了机械转动部件的SSD，还是有写入寿命的限制。</p>
+<p>这个介绍数据中心的<a href="http://v.youku.com/v_show/id_XMTMyMTI1ODQ4NA==.html" target="_blank" rel="noopener">视频</a> 里面有一段关于替换故障硬盘的细节值得注意。服务器的CPU，内存，硬盘和网卡 这几个主要部件里，因为硬盘是机械部件，而且一直在运转，不像普通机器大部分时间关机或休眠，所以是最容易出故障的，换硬盘应该是数据中心的日常维护工作了。 即便升级成没有了机械转动部件的SSD，还是有写入寿命的限制。</p>
 
       
 
@@ -193,17 +195,17 @@
   	<ul>
   		<li><a href="/"><i class="icon icon-home"></i></a></li>
   		
-			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+			<li><a href="/archives"><i class="icon icon-bars"></i></a></li>
   		
   		
   			<li><a href="https://github.com/ying-zhang" target="_blank"><i class="icon icon-github"></i></a></li>
   		
 			
-  			<li><a href="/atom.xml" target="_blank"><i class="icon icon-tag"></i></a></li>
+  			<li><a href="/atom.xml" target="_blank"><i class="icon icon-rss"></i></a></li>
   		
   	</ul>
   </nav>
-  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+  <a id="go-top" href="#"><i class="icon icon-up-bold"></i></a>
 </aside>
       </div>
       <footer id="footer">
