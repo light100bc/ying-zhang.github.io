@@ -11,8 +11,8 @@ CCF网站2016年底改版了一次，目前还保留着旧版网站，新旧网�
 各链接如下：
 + **[我合并后的CCF目录完整列表，HTML链接，2017-02-25](/doc/ccf-all-in-one-2017-02-25.html)** 
 + **[我合并后的CCF目录完整列表，Excel文件](/doc/ccf_all_in_one_2017-02-25.xlsx)**
-+ CCF **新** 网站链接：[CCF目录网页版](http://webtest.ccf.org.cn/xspj/gyml/)，[2015版的PDF](http://www.ccf.org.cn/ccf/contentcore/resource/download?ID=32826)
-+ CCF **旧** 网站链接：[CCF目录网页版](http://history.ccf.org.cn/sites/ccf/paiming.jsp)，[2015版的PDF](http://history.ccf.org.cn/sites/paiming/2015ccfmulu.pdf) 
++ CCF **新** 网站链接：[CCF目录网页版](http://www.ccf.org.cn/xspj/gyml/)，[2015版的PDF](http://www.ccf.org.cn/ccf/contentcore/resource/download?ID=32826)
++ CCF **旧** 网站链接：[CCF目录网页版](http://history.ccf.org.cn/paiming.jsp.htm)，[2015版的PDF](http://history.ccf.org.cn/2015ccfmulu.pdf) 
 
 <!--more-->
 

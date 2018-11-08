@@ -126,7 +126,7 @@ dblp 列出了关于CS论文的一些统计数据，比如（2016年10月查询�
 而且dblp整站的数据都可以下载为一个[xml文件](https://dblp.dagstuhl.de/xml/)，以供进一步挖掘。
 
 ## DOI
-在查找或引用论文时经常会遇到DOI(Digital Object Identifier)，[wikipedia介绍DOI](https://zh.wikipedia.org/wiki/DOI)“是一套识别数字资源的机制，涵括的对象有视频、报告或书籍等等。它既有一套为资源命名的机制，也有一套将识别号解析为具体地址的协议”。有一个[https://sci-hub.tw]网站，可以通过DOI获取不少文章的全文。
+在查找或引用论文时经常会遇到DOI(Digital Object Identifier)，[wikipedia介绍DOI](https://zh.wikipedia.org/wiki/DOI)“是一套识别数字资源的机制，涵括的对象有视频、报告或书籍等等。它既有一套为资源命名的机制，也有一套将识别号解析为具体地址的协议”。有一个 [https://sci-hub.tw] 网站，可以通过DOI获取不少文章的全文。
 
 ## 其它
 从Google Scholar搜索全文时可能会跳转到下面这几个网站，因为它们会保存一些别人分享的全文。
@@ -144,14 +144,15 @@ EI和SCI只是两个论文数据库，但能够发表被EI和SCI收录的文章�
 A，B类的会议和期刊的文章学术质量较高。这个质量不是简单通过所谓影响因子等机械的数据来评价的，而是综合了多种因素，国际上也获得比较广泛认可的。比如，翻一下本科的《现代操作系统》这本经典教材的参考文献，会发现其中引用的有不少SOSP，OSDI，ASPLOS，TCS等CCF A类会议和期刊。
 
 > 如果只看标题和摘要，有的期刊/会议文章看起来非常值得一读，比如 [Future Generation Computer Systems，FGCS](https://dblp.org/db/journals/fgcs/)上的文章。但如果仔细读一下文章全文，经常是大失所望。好在CCF只给了FGCS C类的评级。
-> **随着越来越多的研究生进入工业界，论文对码农来说也就不那么神秘了。看到别人写的文章末尾附上了一大堆英文论文，也不只是单纯地赞赏一番或浏览一下标题，还要看看这些文章发在哪些会议或者期刊上。**
-> 其实经典的二八定律也符合学术界，对CS专业来说比例可能更甚。**事实是大部分的文章不值得细读**。这时就会发现CCF评级的价值了。**仅从A类文章搜集资料就已经足够了**，还能提高检索效率，避免无用功。
+> **随着越来越多的研究生进入工业界，论文对码农来说也就不那么神秘了。看到别人写的文章末尾附上了一大堆英文论文，也不会被震惊到只能点赞了，还要看看这些文章发在哪些会议或者期刊上，要是一堆CCF-C或者都不在CCF列表的（当然，一些较新的，没来得及收录的除外），那就呵呵了。**
+> 其实二八定律也符合学术界，对CS专业来说比例可能更甚。**事实是大部分的文章不值得细读**。这时就显现出CCF评级的价值了。**我的衷告是：仅从CCF-A类 会议 搜集资料就足够了**，能提高检索效率，避免无用功。
 
 上面提到ACM有三十多个SIGs，而CCF则只划分了10个子方向，不同的视角有不同的划分结果，这里有ACM的更详细的[分类系统CCS](http://dl.acm.org/ccs/ccs.cfm)，以及有重叠的[SIGs大类划分](https://www.acm.org/special-interest-groups/sigs-by-knowledge-area)，还有[wikipedia上的一个划分](https://en.wikipedia.org/wiki/Outline_of_computer_science)。
 
 # Google Scholar（谷歌学术）
 [Google Scholar](https://scholar.google.com/)非常强大又简单易用。虽然它不只收录CS专业的文献，但很容易搜索到准确的结果。我习惯先在谷歌学术上搜索，如果搜不到就改用 **高级搜索**，实在不行再去ACM DL、IEEE Xplore或者Google网页搜索。
-![谷歌学术高级搜索](/img/scholar_adv.png)
+
+<img src="/img/scholar_adv.png" alt="谷歌学术高级搜索" width="700">
 
 ## 创建快讯
 与Google网页搜索一样，可以在Google Scholar创建某个关键词或某篇文章的快讯（发送邮件通知最新的搜索结果）；
@@ -159,7 +160,7 @@ A，B类的会议和期刊的文章学术质量较高。这个质量不是简单
 
 > 话说体验一下[必应学术](http://www.bing.com/academic)、[百度学术](http://xueshu.baidu.com/)和[搜狗学术](http://scholar.sogou.com/)也未尝不可。
 
-<a name="tldr" />
+<a name="tldr"></a>
 
 # tl,dr：链接列表
 
@@ -192,11 +193,12 @@ A，B类的会议和期刊的文章学术质量较高。这个质量不是简单
 | VLDB Journal | **A** | [ACM](http://dl.acm.org/pub.cfm?id=J869&tab=pubs) , [DBLP](https://dblp.org/db/journals/vldb/) | Int. Journal on Very Large Data Bases |
 | NSDI | **B** | [USENIX](https://www.usenix.org/conferences/byname/178) , [DBLP](https://dblp.org/db/conf/nsdi/) | Network System Design and Implementation |
 | SigComm | **A** | [ACM](http://dl.acm.org/event.cfm?id=RE258&tab=pubs) , [DBLP](https://dblp.org/db/conf/sigcomm/) | The Conf. of the ACM Special Interest Group on Data Communication |
+| ICAC |  | [IEEE](https://ieeexplore.ieee.org/xpl/conhome.jsp?punumber=1001178) , [DBLP](https://dblp.org/db/conf/icac/) | IEEE Int. Conf. on Autonomic Computing |
 
 
 体系结构中的 ASPLOS、ISCA、Micro、ATC、EuroSys、HPDC、LISA、SigMetrics、TC、TPDS等，及软工的OSDI、SOSP等也都有不少云计算相关的文章。 
 IEEE 云计算系列（CLOUD等）也可以看看。 [IEEE](http://cloudcomputing.ieee.org/conferences) , [DBLP](https://dblp.org/db/conf/IEEEcloud/) 
-PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开会，会议名字却一样，一拨的Paper是通过IEEE出版的，一拨则是Springer出版的。估计这种情况CCF列表里仅此一例吧，**建议选择发在IEEE的那个** 。
+PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开会，会议名字却一样，一拨的Paper是通过IEEE出版的，一拨则是Springer出版的。估计这种情况CCF列表里仅此一例吧。
 
 
 ## 软件工程（偏程序分析）
@@ -222,6 +224,7 @@ PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开�
 | TOSEM | **A** | [ACM](http://dl.acm.org/pub.cfm?id=J790&tab=pubs) , [DBLP](https://dblp.org/db/journals/tosem/) | Trans. on Software Engineering Methodology |
 | TSE | **A** | [IEEE](https://www.computer.org/web/tse) , [DBLP](https://dblp.org/db/journals/tse/) | Trans. on Software Engineering |
 | SPE | **B** | <a href="http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)1097-024X" target="_blank" rel="external">Wiley</a>, [DBLP](https://dblp.org/db/journals/spe/) | Software - Practice and Experience |
+
 
 ## ACM DL列表
 + [收录会议和期刊的完整列表](http://dl.acm.org/contents_dl.cfm)
@@ -266,8 +269,6 @@ PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开�
 + [Advice on Getting a Start into Research](http://taoxie.cs.illinois.edu/adviceonresearch.html)
 
 ## 其它链接
-+ [微软研究院](https://www.microsoft.com/en-us/research/)
-+ [谷歌研究院](https://research.google.com/pubs/papers.html)
 + [The morning paper](https://blog.acolyer.org/), an interesting-influential-important paper from the world of CS every weekday morning
 + [IEEE Technical Committee on Data Engineering](http://sites.computer.org/debull/bull_issues.html)
 + **[Suggested Guidelines for Finding Materials to include in the "Related Work" Sections of Conference Papers](http://www1.cs.columbia.edu/~kaiser/relatedwork.htm)**
@@ -278,6 +279,10 @@ PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开�
 + [How to Read a Paper(pdf)](http://blizzard.cs.uwaterloo.ca/keshav/home/Papers/data/07/paper-reading.pdf)
 + [How to Read a Technical Paper](https://www.cs.jhu.edu/~jason/advice/how-to-read-a-paper.html)
 + [《学术研究 - 你的成功之道》第3章](http://item.jd.com/11127141.html)
+
+# 如何写论文
++ [How to Write a Great Research Paper - Simon Peyton Jones - B站视频](https://www.bilibili.com/video/av12841463/), [YouTube 原版](https://www.youtube.com/watch?v=VK51E3gHENc)
+
 
 # [Todo]辅助工具
 + [会伴](http://myhuiban.com)
@@ -290,9 +295,10 @@ PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开�
 + [Teambition](https://www.teambition.com/)
 + Todo，如何整理文献，如何管理时间，[科研小组里有哪些有效的组会形式 - 知乎](https://www.zhihu.com/question/27956707)
 
-> 如果所在的实验室没有什么积累，暂时没有好的idea/topic，不妨去浏览一下感兴趣的大方向的A类会议近三年或五年的文章列表，**总会觉得** 有几篇比其它文章更有意思，这就把范围缩小一些了；然后再从这几篇文章里提炼出关键词，去[wikipedia](https://en.wikipedia.org/)上搜索一下这个关键词，再从Related Work再扩展出去，体验一下这个小领域涉及的问题。找出来这个小领域里发文章比较多的作者和研究小组（实验室），去作者和小组的主页看看。这个前期工作其实花不了一周的时间，然后就收集一些相关的论文，粗览一遍，筛选出值得仔细研读的。我们不妨通过相关论文的数量来定义一个小的领域，武断地说100篇或200篇，这个具体的大小不是关键，但一个领域能发的文章必定是有限的，太多的话说明问题太复杂，还要细分，太少的话，如果不是幸运地发现了新的方向，就是问题太Trivial了。而这其中，又只有几篇或十几篇是开创性的，非常值得仔细研读的。
+> 如果所在的实验室 **没有什么积累**，暂时没有好的idea/topic，不妨去浏览一下感兴趣的大方向的A类会议近三年或五年的文章列表，**总会觉得** 有几篇比其它文章更有意思，这就把范围缩小一些了；然后再从这几篇文章里提炼出关键词，去[wikipedia](https://en.wikipedia.org/)上搜索一下这个关键词，再从Related Work再扩展出去，体验一下这个细分领域涉及的问题。找出来这个细分领域里发文章比较多的作者和研究小组（实验室），去作者和小组的主页看看。这个前期工作其实花不了一周的时间，然后收集了一些相关的论文，粗览一遍，筛选出几篇或十几篇值得仔细研读的。
+> 我们不妨通过相关论文的数量来定义一个细分的领域，比如武断地说，100篇或150篇。这个具体的数量不是关键，但一个领域能发的文章必定是有限的，太多的话说明问题太复杂，还要细分，太少的话，如果不是幸运地发现了新的方向，就是问题太 Trivial 了。而这其中，又只有几篇或十几篇是开创性的，值得非常仔细地研读的。
 如果读完核心的几篇文章后还是没有新的想法，那就只好重复上面的过程，重新寻找另外感兴趣的领域了。
-> PS，相比上面列出来一堆链接，其实这几句话才是这篇文章的重点啊 ;-)
+> PS，**相比上面列出来一堆链接，其实这几句话才是这篇文章的重点啊 ;-)**
 
 一些标题有`A systematic review on ...`综述文章，其中会介绍收集相关论文的过程，方法都类似，可以找一篇当作论文搜集方法的教程来看。
 
@@ -301,7 +307,7 @@ PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开�
 + [如何高效管理文献？](https://www.zhihu.com/question/26857521)
 + [如何写好一篇高质量的IEEE/ACM Transaction级别的计算机科学论文?](https://www.zhihu.com/question/22790506)
 
-<a name="hosts" />
+<a name="hosts"></>
 # [Bonus] 如何访问Google Scholar
 
 ## 改hosts
