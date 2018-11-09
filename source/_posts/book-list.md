@@ -99,5 +99,12 @@ Java
 + 《设计数据密集型应用（影印版）Designing data-intensive applications》：知乎上看到的，浏览了一下目录，比较全面地介绍了分布式系统各方面的理论和应用，可以当做教材了
 + 《深入理解并行编程》：英文原书： [Is Parallel Programming Hard, And, If So, What Can You Do About It?]((https://www.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html))， 是开源的，链接分别为 [PDF](http://kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook-1c.2017.11.22a.pdf) 和 [Github Repo](https://github.com/pranith/perfbook)，同译者2011年版的译本也是公开的，内容还是很充实的，先买来收藏
 + 《深入浅出强化学习》
-
-
++ 《人工智能简史》作者：尼克
++ 《深入浅出Rust》
++ 《毛泽东选集》 第1-4卷
++ 《面向计算机科学的数理逻辑 - 系统建模与推理》
++ 《云系统管理：大规模分布式系统设计与运营 - 卷 2》
++ 《软件工程：实践者的研究方法（原书第8版）》
++ 《Julia数据科学应用》
++ 《etcd技术内幕》
++ 《图解性能优化》
