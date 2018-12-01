@@ -157,14 +157,12 @@ date: 2018-12-01
 ...
 > 以下是 Google 翻译的内容（https://translate.google.cn/ 没有被墙，可以正常访问）
 
-~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **无益的CAP定理** 
 
 CAP有时表现为一致性，可用性，分区容差：从2中挑选2个。不幸的是，这样做是误导[32]因为网络分区是一种错误，所以它们不是你可以选择的东西：无论你喜欢与否，它们都会发生[38]。
 在网络正常工作时，系统可以提供一致性（线性化）和总体可用性。发生网络故障时，您必须在线性化或总可用性之间进行选择。因此，一种更好的表达CAP的方法是在分区时保持一致或可用[39]。一个更可靠的网络需要不经常做出这种选择，但在某些时候，选择是不可避免的。
 在CAP的讨论中，对可用性一词有几个相互矛盾的定义，而作为定理的形式化[30]与其通常的含义不相符[40]。许多所谓的“高可用性”（容错）系统实际上不符合CAP对可用性的特殊定义。总而言之，CAP周围存在很多误解和混淆，它无助于我们更好地理解系统，因此最好避免使用CAP。
-~~~~~~~~~~~~~~~~~~~~~~~~~
 
 正式定义的CAP定理[30]范围非常狭窄：它只考虑一种一致性模型（即线性化）和一种故障（网络分区，或者活着但彼此断开的节点）。它没有说明网络延迟，死节点或其他权衡。因此，虽然CAP在历史上具有影响力，但它对设计系统几乎没有实际价值[9,40]。
 在分布式系统中有更多有趣的不可能性结果[41]，CAP现在已被更精确的结果所取代[2,42]，因此它在今天主要是历史兴趣。
@@ -172,14 +170,12 @@ CAP有时表现为一致性，可用性，分区容差：从2中挑选2个。不
 
 > 原文
 
-~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **The Unhelpful CAP Theorem**
 
 CAP is sometimes presented as Consistency, Availability, Partition tolerance: pick 2 out of 3. Unfortunately, putting it this way is misleading[32] because network partitions are a kind of fault, so they aren’t something about which you have a choice: they will happen whether you like it or not [38].
 At times when the network is working correctly, a system can provide both consistency (linearizability) and total availability. When a network fault occurs, you have to choose between either linearizability or total availability. Thus, a better way of phrasing CAP would be either Consistent or Available when Partitioned [39]. A more reliable network needs to make this choice less often, but at some point the choice is inevitable.
 In discussions of CAP there are several contradictory definitions of the term availability, and the formalization as a theorem [30] does not match its usual meaning [40]. Many so-called "highly available" (fault-tolerant) systems actually do not meet CAP’s idiosyncratic definition of availability. All in all, there is a lot of misunderstanding and confusion around CAP, and it does not help us understand systems better, so CAP is best avoided.
-~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The CAP theorem as formally defined [30] is of very narrow scope: it only considers one consistency model (namely linearizability) and one kind of fault (network partitions, or nodes that are alive but disconnected from each other). It doesn’t say anything about network delays, dead nodes, or other trade-offs. Thus, although CAP has been historically influential, it has little practical value for designing systems [9, 40].
 There are many more interesting impossibility results in distributed systems [41], and CAP has now been superseded by more precise results [2, 42], so it is of mostly historical interest today.
