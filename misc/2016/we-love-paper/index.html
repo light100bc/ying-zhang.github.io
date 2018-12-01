@@ -15,7 +15,9 @@
 <meta property="og:image" content="https://ying-zhang.github.io/img/lib.png">
 <meta property="og:image" content="https://ying-zhang.github.io/img/pubs.png">
 <meta property="og:image" content="https://ying-zhang.github.io/img/scholar_adv.png">
-<meta property="og:updated_time" content="2018-11-08T15:48:16.909Z">
+<meta property="og:image" content="https://ying-zhang.github.io/img/scholar_newslet.png">
+<meta property="og:image" content="https://ying-zhang.github.io/img/scholar_newslet_author.png">
+<meta property="og:updated_time" content="2018-11-10T04:43:40.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何收集和整理论文（面向CS专业）">
 <meta name="twitter:description" content="论文（Paper）是每个研究生读研路上挥之不去的“阴云”。无论是否已经有了一个好的课题或想法，都首先要收集某个研究方向一定数量的论文，来了解相关的工作和最新进展（State of the art &amp;amp; practice）。本文介绍了如何检索、收集计算机科学（CS）专业的论文，还介绍了相关的机构，学术会议和论文数据库。文末有 Bonus 哦;-)">
@@ -145,7 +147,7 @@ Idea -> 编程、实验、写Paper、投稿 <                                   
 <li>系统方向的<a href="http://www.sigops.org/" target="_blank" rel="noopener">SIGOPS</a>，</li>
 <li>软件工程方向的<a href="http://www.sigplan.org/" target="_blank" rel="noopener">SIGPLAN</a>、<a href="http://www.sigsoft.org/" target="_blank" rel="noopener">SIGSOFT</a></li>
 </ul>
-<p>这些SIGs除了组织一系列的学术会议，还会评选本方向的一些奖项，包括 <strong>最佳论文</strong>，<strong>优秀博士论文</strong> 等（在DL中一般没有标明哪篇是Best Paper）。此外，</p>
+<p>这些SIGs除了组织一系列的学术会议，还会评选本方向的一些奖项，包括 <strong><a href="https://www.sigsoft.org/awards/distinguishedPaperAward.html" target="_blank" rel="noopener">最佳论文</a></strong>，<strong><a href="https://www.sigsoft.org/awards/dissertationAward.html" target="_blank" rel="noopener">优秀博士论文</a></strong> 等（论文数据库中有时没有标明哪些是 Best Paper）。<br>此外，</p>
 <ul>
 <li>有网站维护了一个<a href="http://jeffhuang.com/best_paper_awards.html" target="_blank" rel="noopener">部分会议的最佳论文列表</a>，</li>
 <li>还有下面要介绍的USENIX的<a href="https://www.usenix.org/conferences/best-papers" target="_blank" rel="noopener">各会议最佳论文</a>。</li>
@@ -192,9 +194,17 @@ Idea -> 编程、实验、写Paper、投稿 <                                   
 <p>上面提到ACM有三十多个SIGs，而CCF则只划分了10个子方向，不同的视角有不同的划分结果，这里有ACM的更详细的<a href="http://dl.acm.org/ccs/ccs.cfm" target="_blank" rel="noopener">分类系统CCS</a>，以及有重叠的<a href="https://www.acm.org/special-interest-groups/sigs-by-knowledge-area" target="_blank" rel="noopener">SIGs大类划分</a>，还有<a href="https://en.wikipedia.org/wiki/Outline_of_computer_science" target="_blank" rel="noopener">wikipedia上的一个划分</a>。</p>
 <h1 id="Google-Scholar（谷歌学术）"><a href="#Google-Scholar（谷歌学术）" class="headerlink" title="Google Scholar（谷歌学术）"></a>Google Scholar（谷歌学术）</h1><p><a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a>非常强大又简单易用。虽然它不只收录CS专业的文献，但很容易搜索到准确的结果。我习惯先在谷歌学术上搜索，如果搜不到就改用 <strong>高级搜索</strong>，实在不行再去ACM DL、IEEE Xplore或者Google网页搜索。</p>
 <p><img src="/img/scholar_adv.png" alt="谷歌学术高级搜索" width="700"></p>
-<h2 id="创建快讯"><a href="#创建快讯" class="headerlink" title="创建快讯"></a>创建快讯</h2><p>与Google网页搜索一样，可以在Google Scholar创建某个关键词或某篇文章的快讯（发送邮件通知最新的搜索结果）；<br>此外，注意搜索到的论文的作者是否有链接，打开即是Google Scholar创建的作者个人资料页，上面一般有作者的单位、联系方式，文章列表等，在 <strong>作者的个人资料页</strong> 可以创建关于他的新文章或新引用的快讯，及时获取动态。</p>
+<h2 id="创建快讯"><a href="#创建快讯" class="headerlink" title="创建快讯"></a>创建快讯</h2><p>与Google网页搜索一样，可以在Google Scholar创建某个关键词或某篇文章的快讯（发送邮件通知最新的搜索结果）。<br>接收快讯 <strong>不需要</strong> 注册谷歌账号，任何有效的 Email 皆可。如果注册了谷歌学术账号，还可以获得个性化推荐的文章。</p>
+<p>谷歌学术有 3 种快讯：</p>
+<ol>
+<li>关键词快讯：如果在谷歌学术搜索完整的文章标题，只有一条匹配结果的话，谷歌会很自信地 <strong>不</strong> 在页面左侧显示 “创建快讯” 的入口链接；有多条结果时，才会显示。这是关键词快讯，是从文章全文中检索的，跟普通的谷歌网页搜索快讯差不多，查询结果可能有不少无关项，准确度较差，不建议使用；</li>
+<li>引用快讯：点击文章项的 “被引用次数：xx” 链接，在新的引用项列表页，左侧同样有 “创建快讯” 链接，这时创建的是引用该文章的快讯，相当于科研人员人工添加的项，是最准确的，<strong>推荐使用</strong>；不足之处是，对比较新的文章，还没有被引用过的话，就没有引用页，也就无法获取这个 “创建快讯” 入口链接… 解决办法可 <a href="https://webapps.stackexchange.com/questions/45333/how-to-create-a-citation-alert-for-a-paper-without-citation-in-google-scholar" target="_blank" rel="noopener">参考这个 StackExchange 问题</a> ；</li>
+<li>作者快讯：如果某位作者在谷歌学术创建了个人主页（如 <a href="https://scholar.google.com/citations?user=RivxoIcAAAAJ" target="_blank" rel="noopener">苏振东教授的主页</a>），可以点击其主页上的 “关注” 按钮，获取其 <strong>新文章</strong>，<strong>该作者文章的新引用</strong>，<strong>相关研究的新文章</strong>，推荐前 2 个选项即可。</li>
+</ol>
+<p><img src="/img/scholar_newslet.png" alt="谷歌学术 - 引用快讯" width="500"></p>
+<p><img src="/img/scholar_newslet_author.png" alt="谷歌学术 - 作者快讯" width="540"></p>
 <blockquote>
-<p>话说体验一下<a href="http://www.bing.com/academic" target="_blank" rel="noopener">必应学术</a>、<a href="http://xueshu.baidu.com/" target="_blank" rel="noopener">百度学术</a>和<a href="http://scholar.sogou.com/" target="_blank" rel="noopener">搜狗学术</a>也未尝不可。</p>
+<p>也可以体验一下<a href="http://www.bing.com/academic" target="_blank" rel="noopener">必应学术</a>、<a href="http://xueshu.baidu.com/" target="_blank" rel="noopener">百度学术</a>。真是没有对比就没有伤害啊…</p>
 </blockquote>
 <p><a name="tldr"></a></p>
 <h1 id="tl-dr：链接列表"><a href="#tl-dr：链接列表" class="headerlink" title="tl,dr：链接列表"></a>tl,dr：链接列表</h1><h2 id="体系结构，分布式系统"><a href="#体系结构，分布式系统" class="headerlink" title="体系结构，分布式系统"></a>体系结构，分布式系统</h2><div class="table-container">
@@ -515,6 +525,12 @@ Idea -> 编程、实验、写Paper、投稿 <                                   
 <h2 id="谢涛老师的指导建议"><a href="#谢涛老师的指导建议" class="headerlink" title="谢涛老师的指导建议"></a>谢涛老师的指导建议</h2><ul>
 <li><a href="http://taoxie.cs.illinois.edu/publications/writepapers.pdf" target="_blank" rel="noopener">Advice on Writing Research Papers - Tao Xie - PDF</a></li>
 <li><a href="http://taoxie.cs.illinois.edu/adviceonresearch.html" target="_blank" rel="noopener">Advice on Getting a Start into Research</a></li>
+</ul>
+<h2 id="软件工程学科知识体系"><a href="#软件工程学科知识体系" class="headerlink" title="软件工程学科知识体系"></a>软件工程学科知识体系</h2><p>软件工程学科知识体系 Software Engineering Body of Knowledge, SWEBoK - ISO/IEC TR 19759:2005</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Software_Engineering_Body_of_Knowledge" target="_blank" rel="noopener">Wikipedia 页</a> </li>
+<li><a href="https://www.computer.org/education/bodies-of-knowledge/software-engineering" target="_blank" rel="noopener">IEEE Computer 学会</a></li>
+<li><a href="/doc/SWEBoKv3.pdf">PDF 全文</a> （其实手册都挺枯燥的）</li>
 </ul>
 <h2 id="其它链接"><a href="#其它链接" class="headerlink" title="其它链接"></a>其它链接</h2><ul>
 <li><a href="https://blog.acolyer.org/" target="_blank" rel="noopener">The morning paper</a>, an interesting-influential-important paper from the world of CS every weekday morning</li>
