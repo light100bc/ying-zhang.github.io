@@ -230,6 +230,7 @@ PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开�
 | HotOS | **B** | [USENIX](https://www.usenix.org/conferences/byname/155) , [DBLP](https://dblp.org/db/conf/hotos/)  | USENIX Workshop on Hot Topics in Operating Systems |
 | ICSME | **B** | [IEEE](http://conferences.computer.org/icsm/) , [DBLP](https://dblp.org/db/conf/icsm/) | Int. Conf. on Software Maintenance |
 | ISSTA | **B** | [ACM](http://dl.acm.org/event.cfm?id=RE222&tab=pubs) , [DBLP](https://dblp.org/db/conf/issta/) | Int. Symposium on Software Testing and Analysis |
+| SANER (原WCRE)  | **B** | [DBLP](https://dblp.org/db/conf/wcre/) | Int. Conf. on Software Analysis, Evolution and Reengineering |
 | TOPLAS | **A** | [ACM](http://dl.acm.org/pub.cfm?id=J783&tab=pubs) , [DBLP](https://dblp.org/db/journals/toplas/) | Trans. on Programming Languages and Systems |
 | TOSEM | **A** | [ACM](http://dl.acm.org/pub.cfm?id=J790&tab=pubs) , [DBLP](https://dblp.org/db/journals/tosem/) | Trans. on Software Engineering Methodology |
 | TSE | **A** | [IEEE](https://www.computer.org/web/tse) , [DBLP](https://dblp.org/db/journals/tse/) | Trans. on Software Engineering |
@@ -308,14 +309,21 @@ PS：从2017，2018年开始，CLOUD分裂成两拨人，在不同的地点开�
 + [Mendeley](https://www.mendeley.com/)
 + [Zotero](https://www.zotero.org/)
 + [Teambition](https://www.teambition.com/)
-+ Todo，如何整理文献，如何管理时间，[科研小组里有哪些有效的组会形式 - 知乎](https://www.zhihu.com/question/27956707)
++ [Microsoft Office SharePoint](https://products.office.com/zh-cn/sharepoint/collaboration)
+
+# Todo
+
++ 个人如何分类/归档/分享文献
++ [科研小组里有哪些有效的组会形式 - 知乎](https://www.zhihu.com/question/27956707)
++ 小组如何建设/积累知识库
 
 > 如果所在的实验室 **没有什么积累**，暂时没有好的idea/topic，不妨去浏览一下感兴趣的大方向的A类会议近三年或五年的文章列表，**总会觉得** 有几篇比其它文章更有意思，这就把范围缩小一些了；然后再从这几篇文章里提炼出关键词，去[wikipedia](https://en.wikipedia.org/)上搜索一下这个关键词，再从Related Work再扩展出去，体验一下这个细分领域涉及的问题。找出来这个细分领域里发文章比较多的作者和研究小组（实验室），去作者和小组的主页看看。这个前期工作其实花不了一周的时间，然后收集了一些相关的论文，粗览一遍，筛选出几篇或十几篇值得仔细研读的。
 > 我们不妨通过相关论文的数量来定义一个细分的领域，比如武断地说，100篇或150篇。这个具体的数量不是关键，但一个领域能发的文章必定是有限的，太多的话说明问题太复杂，还要细分，太少的话，如果不是幸运地发现了新的方向，就是问题太 Trivial 了。而这其中，又只有几篇或十几篇是开创性的，值得非常仔细地研读的。
 如果读完核心的几篇文章后还是没有新的想法，那就只好重复上面的过程，重新寻找另外感兴趣的领域了。
 > PS，**相比上面列出来一堆链接，其实这几句话才是这篇文章的重点啊 ;-)**
 
-一些标题有`A systematic review on ...`综述文章，其中会介绍收集相关论文的过程，方法都类似，可以找一篇当作论文搜集方法的教程来看。
+>一些标题有`A systematic review on ...`综述文章，其中会介绍收集相关论文的过程，方法大都类似，即所谓 **[Systematic Literature Review (SLR)](https://blog.efpsa.org/2018/01/03/writing-a-systematic-literature-review/)**，可以随便找一篇当作论文搜集方法的教程来看。
+>其实 SLR 方法是完全新手才用的文献收集方法，对某个主题稍有了解后，应该可以识别出来相关的会议，期刊，研究组，也就是发现了所谓的“圈子”了。或许几位国内作者发表了你感兴趣的文章，你还没有听说过，不认识文章作者，但你的导师可能与作者经常一起开会，谈笑风生。其实圈子很小的。当然，你的导师不告诉你，这也没办法。
 
 再列出知乎上的几个相关问题吧
 + [如何总结和整理学术文献？](https://www.zhihu.com/question/26901116)
