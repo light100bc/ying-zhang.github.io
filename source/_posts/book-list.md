@@ -73,7 +73,7 @@ Java
 
 # 2017年买的书
 
-+ 《机器学习》（周志华老师的西瓜书，实际是2016年买的，小组经费）
++ 《机器学习》
 + 《深度学习》
 + 《深度学习：优化与识别》
 + 《Netty实战》
@@ -81,12 +81,12 @@ Java
 + 《Kotlin实战》
 + 《Scala程序设计（第2版）》
 + 《Go并发编程实战（第2版）》
++ 《算法导论（原书第3版）》
 + 《Linux多线程服务端编程：使用muduo C++网络库》
 + 《图解Spark： 核心技术与案例实战》
-+ 《性能之巅： 洞悉系统、企业与云计算》（小组经费）	
-+ 《深入理解计算机系统（第3版）》（小组经费）
-+ 《SRE:Google运维解密》 （小组经费）
-+ 《ZooKeeper:分布式过程协同技术详解》 （小组经费）
++ 《性能之巅： 洞悉系统、企业与云计算》
++ 《深入理解计算机系统（第3版）》
++ 《ZooKeeper:分布式过程协同技术详解》
 + 《垃圾回收算法手册：自动内存管理的艺术》
 + 《现代操作系统（原书第4版）》
 + 《大型汽轮发电机设计、制造与运行》
@@ -96,15 +96,28 @@ Java
 
 # 2018年买的书
 + 《构建之法（第3版）》
-+ 《设计数据密集型应用（影印版）Designing data-intensive applications》，中文版是《数据密集型应用系统设计》
-+ 《深入理解并行编程》：英文原书： [Is Parallel Programming Hard, And, If So, What Can You Do About It?]((https://www.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html))
-+ 《深入浅出强化学习》
++ 《设计数据密集型应用（影印版）Designing data-intensive applications》，以及《数据密集型应用系统设计》
++ <del>《深入理解并行编程》：英文原书： [Is Parallel Programming Hard, And, If So, What Can You Do About It?](https://www.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html) </del>
 + 《人工智能简史》作者：尼克
 + 《深入浅出Rust》
++ 《深入浅出强化学习》
 + 《毛泽东选集》 第1-4卷
 + 《面向计算机科学的数理逻辑 - 系统建模与推理》
 + 《云系统管理：大规模分布式系统设计与运营 - 卷 2》
++ 《容器即服务：从零构建企业级容器集群》
++ 《高效团队开发:工具与方法》
 + 《软件工程：实践者的研究方法（原书第8版）》
 + 《Julia数据科学应用》
++ 《SRE:Google运维解密》 
 + 《etcd技术内幕》
 + 《图解性能优化》
++ 《Python自然语言处理实战》
++ 《算法竞赛入门经典》
++ 《计算机应用与可靠性工程中的概率统计》
++ 《分布式机器学习》
++ 《C#从现象到本质》
++ 《自己动手实现Lua：虚拟机、编译器和标准库》
++ 《现代x86汇编语言程序设计》
++ 《应用时间序列分析》
++ 《PySpark实战指南》
++ 《高性能Spark（影印版）》
