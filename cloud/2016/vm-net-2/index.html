@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>再说docker及云中的网络连接 | Ying的博客</title>
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
-</head>
+</head></html>
 <body>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
     <div id="wrap">
@@ -97,7 +97,7 @@
 <h1 id="macvlan"><a href="#macvlan" class="headerlink" title="macvlan"></a>macvlan</h1><p>Linux bridge是一个软件实现的虚拟网桥，而macvlan则利用了网卡硬件的支持。<br>目前的docker内置了macvlan支持。参考<a href="https://docs.docker.com/engine/userguide/networking/get-started-macvlan/" target="_blank" rel="noopener">docker的macvlan文档</a> 和 <a href="https://github.com/alfredhuang211/study-docker-doc/blob/master/docker%E8%B7%A8%E4%B8%BB%E6%9C%BAmacvlan%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.md" target="_blank" rel="noopener">数人云的一篇文档 - docker跨主机macvlan网络配置</a>，按下面的例子可以设置macvlan：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 主机IP为10.1.1.10/24，网卡名称ens33，首先开启网卡的混杂模式</span><br><span class="line">ip link set ens33 promisc on</span><br><span class="line"></span><br><span class="line"># 创建名为macvlan_net的docker网络</span><br><span class="line">docker network create -d macvlan --subnet=10.1.1.0/24 --gateway=10.1.1.2 -o parent=ens33 macvlan_net</span><br><span class="line"></span><br><span class="line"># 运行容器时指定或动态分配IP。注意，动态分配的IP可能与主机IP冲突</span><br><span class="line">docker run -ti --net macvlan_net --ip=10.1.1.101  centos:net /bin/bash</span><br><span class="line">docker run -ti --net macvlan_net centos:net /bin/bash</span><br></pre></td></tr></table></figure></p>
 <p>上面使用的<code>centos:net</code>镜像是在centos:7基础上安装了<code>iproute</code>和<code>net-tools</code>软件包，以在镜像内提供<code>ip</code>，<code>ifconfig</code>等网络管理命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Dockerfile</span><br><span class="line">FROM centos:7</span><br><span class="line">RUN yum install net-tools iproute -y</span><br><span class="line"></span><br><span class="line"># docker build . -t centos:net</span><br></pre></td></tr></table></figure></p>
 <p>按上面的命令创建的2个容器彼此可以pin通，也可以ping通网关和其它主机，但 <strong>不能ping同本主机</strong>，这是macvlan本身的限制（摊手）。macvlan有4种工作模式，可以参考<a href="https://cizixs.github.io/2017/02/14/network-virtualization-macvlan" target="_blank" rel="noopener">linux 网络虚拟化： macvlan</a>、<a href="https://www.ibm.com/developerworks/cn/linux/1312_xiawc_linuxvirtnet/" target="_blank" rel="noopener">Linux 上虚拟网络与真实网络的映射</a>和<a href="http://backreference.org/2014/03/20/some-notes-on-macvlanmacvtap/" target="_blank" rel="noopener">Some notes on macvlan/macvtap</a>，分别为VEPA（不常用，需交换机支持hairpin模式，又称reflective relay反射中继），桥接，私有和Passthru（直通）。<br>使用macvlan网络的容器被置于主机网络中。子网隔离需要VLAN，但实际上同一主机上的容器都使用主机的网线，对应的是交换机的同一个端口，也就是同一个VLAN ID，所以需要macvlan作为一个虚拟交换机，也支持设置VLAN ID。这方面可以参考 <a href="http://t.cn/RXpdDrf" target="_blank" rel="noopener">基于macvlan的Docker容器网络系统的设计与实现 - 浙江大学硕士学位论文 - 万方</a> 和 <a href="/doc/Virtual_switching_technologies_and_Linux_bridge_ppt.pdf">Virtual switching technologies and Linux bridge - ppt</a>。</p>
-<h1 id="overlay网络"><a href="#overlay网络" class="headerlink" title="overlay网络"></a>overlay网络</h1><p>flannel开始是自己实现的overlay机制，将IP包封装到UDP的数据段，即IP in IP，需要拦截并应答容器的ARP包；后来加入了VXLAN的转发方式。VXLAN是将完整的二层以太网包封装到UDP的数据段，即MAC in IP，提供了完整的虚拟二层网络，而且VXLAN是内核支持的，性能好得多。<br>早期版本flannel的配置可以参考<a href="http://dockone.io/article/618" target="_blank" rel="noopener">一篇文章带你了解Flannel</a>。<br>关于<a href="https://tools.ietf.org/html/rfc7348" target="_blank" rel="noopener">VXLAN</a>，从名字上看似乎是VLAN的扩展，但它跟VLAN的实现方式有很大的差别。<br>VLAN是二层以太网包的一个段。对VLAN的支持和VLAN ID是在交换机上设置的（针对交换机各端口，计算机上不需要特别设置）。虽然把VLAN从12位拓展到24位似乎比较简单直接，但需要 <strong>升级交换机</strong> 才能支持新的以太网数据包格式。所以VXLAN把扩展的24位VLAN ID放到了UDP的数据段。VXLAN数据包的处理是通过虚拟的VTEP网卡实现的，实际上是发生在主机上，对交换机而言是透明的。交换机要支持VXLAN还比较复杂些，看起来VXLAN是为主机上的虚拟交换机量身定制的。VXLAN的下层网络可以手动设置点对点的拓扑，也支持通过组播自动发现并组网，不过这样就比较复杂了。<br><img src="/img/vnet-vxlan.png" alt="">。</p>
+<h1 id="overlay网络"><a href="#overlay网络" class="headerlink" title="overlay网络"></a>overlay网络</h1><p>flannel开始是自己实现的overlay机制，将IP包封装到UDP的数据段，即IP in IP，需要拦截并应答容器的ARP包；后来加入了VXLAN的转发方式。VXLAN是将完整的二层以太网包封装到UDP的数据段，即MAC in IP，提供了完整的虚拟二层网络，而且VXLAN是内核支持的，性能好得多。<br>早期版本flannel的配置可以参考<a href="http://dockone.io/article/618" target="_blank" rel="noopener">一篇文章带你了解Flannel</a>。<br>关于<a href="https://tools.ietf.org/html/rfc7348" target="_blank" rel="noopener">VXLAN</a>，从名字上看似乎是VLAN的扩展，但它跟VLAN的实现方式有很大的差别。<br>VLAN是二层以太网包的一个段。对VLAN的支持和VLAN ID是在交换机上设置的（针对交换机各端口，计算机上不需要特别设置）。虽然把VLAN从12位拓展到24位似乎比较简单直接，但需要 <strong>升级交换机</strong> 才能支持新的以太网数据包格式。所以VXLAN把扩展的24位VLAN ID放到了UDP的数据段。VXLAN数据包的处理是通过虚拟的VTEP网卡实现的，实际上是发生在主机上，对交换机而言是透明的。交换机要支持VXLAN还比较复杂些，看起来VXLAN是为主机上的虚拟交换机量身定制的。VXLAN的下层网络可以手动设置点对点的拓扑，也支持通过组播自动发现并组网，不过这样就比较复杂了。<br><img src="/img/vnet-vxlan.png" alt>。</p>
 <p>VXLAN设计的一个应用场景是在不同的三层网络（如多个数据中心）之上（即overlay）建立一个虚拟的二层网络，即所谓的“大二层”。大二层的需求是为了应对虚拟机的在线迁移。虚拟机一般使用桥接模式，与主机有相同的网络环境。当VM迁移到另一个主机后，VM的MAC和IP应保持不变，以便减少对VM内应用和其用户的影响（虽然VM的MAC和IP没有变化，但新主机对应于交换机的端口发生了变化，用户会经历一小段时间的网络中断，以等待交换机端口学习新的ARP映射）。如果不同主机在不同的VLAN甚至跨数据中心，那么迁移后VM将无法与原VLAN的节点通讯。所以在线迁移需要没有隔离的大二层网络，但这样会造成广播风暴。点对点的VXLAN overlay网络可以比较好的解决这个矛盾。<br>docker出现后，面临的跨主机网络与大二层需求不同但也有类似之处，docker内置的overlay网络就使用了VXLAN转发。</p>
 <blockquote>
 <p>VLAN作为传统的子网隔离机制，是工作在二层的。除了VLAN ID不同，每个VLAN的IP网段也不同，即三层通过IP子网来隔离。VLAN之间如果需要通讯，则需设置经路由转发。</p>
@@ -122,7 +122,7 @@
 <li>性能：高带宽，低延迟，扩展性。VXLAN和calico是目前性能比较好的2种技术。</li>
 <li>容器与物理主机，虚拟机互联共存：这一点目前还没有比较好的实现。</li>
 </ul>
-<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p>关于Calico，可参考<a href="http://docs.projectcalico.org/v2.1/getting-started/docker/" target="_blank" rel="noopener">其官网</a>和<a href="http://blog.dataman-inc.com/shurenyun-docker-133/" target="_blank" rel="noopener">将Docker网络方案进行到底</a>。<br>关于不同网络方式的性能，可参考豆瓣上（是的，豆瓣）的这篇<a href="https://www.douban.com/note/530365327/" target="_blank" rel="noopener">Docker network on cloud 中文</a>或者 <a href="https://cmgs.me/life/docker-network-cloud" target="_blank" rel="noopener">https://cmgs.me/life/docker-network-cloud</a> 。这里盗个图。<br><img src="/img/vnet-pk.png" alt=""></p>
+<h1 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h1><p>关于Calico，可参考<a href="http://docs.projectcalico.org/v2.1/getting-started/docker/" target="_blank" rel="noopener">其官网</a>和<a href="http://blog.dataman-inc.com/shurenyun-docker-133/" target="_blank" rel="noopener">将Docker网络方案进行到底</a>。<br>关于不同网络方式的性能，可参考豆瓣上（是的，豆瓣）的这篇<a href="https://www.douban.com/note/530365327/" target="_blank" rel="noopener">Docker network on cloud 中文</a>或者 <a href="https://cmgs.me/life/docker-network-cloud" target="_blank" rel="noopener">https://cmgs.me/life/docker-network-cloud</a> 。这里盗个图。<br><img src="/img/vnet-pk.png" alt></p>
 <h1 id="脑洞"><a href="#脑洞" class="headerlink" title="脑洞"></a>脑洞</h1><p>上面的一堆方案，有的自称为SDN，但实际与SDN还有些差距。SDN是针对网络设备的，而这些方案多是在服务器主机上实现虚拟网络设备（交换机，路由器），更接近NFV的目标。<br><strong>被上面一堆方案搞得头痛的，不妨看看这样一个有意思的想法：<a href="https://coreos.com/blog/jumpers-and-the-software-defined-localhost.html" target="_blank" rel="noopener">Jumpers and the Software Defined Localhost</a>：容器中只有一个loop（127.0.0.1）网卡！完全由外部来管理容器网络。</strong><br>隔离是肯定没问题，都不需要子网的概念了，但都只有一个<code>127.0.0.1</code>的IP，如何与其它容器通讯呢？jumpers使用的是端口，域名应该更好些，Docker 已经为每个容器内置了一个<a href="https://www.infoq.com/news/2016/08/docker-service-load-balancing" target="_blank" rel="noopener">DNS（127.0.0.11）</a>来帮助实现服务发现。</p>
 <p><a href="http://dockone.io/article/2504" target="_blank" rel="noopener">DockOne微信分享（一三零）：探究PaaS网络模型设计</a></p>
 
@@ -177,12 +177,12 @@
       </div>
       <footer id="footer">
 	<center>
-		<img src="/img/qr.jpg" alt="赏~" height="150" />
-		<br/>支持一下！
+		<img src="/img/qr.jpg" alt="赏~" height="150">
+		<br>支持一下！
 		
 					<div id="footer-info" class="inner">
 						&copy;
-						2018
+						2019
 							Ying ZHANG
 								- Powered by
 								<a href="http://hexo.io/" target="_blank">Hexo</a>

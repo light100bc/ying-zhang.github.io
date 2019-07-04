@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>虚拟机及docker的存储，快照和镜像 | Ying的博客</title>
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
-</head>
+</head></html>
 <body>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
     <div id="wrap">
@@ -118,7 +118,7 @@
 <p>VM的迁移虽然是一个可以提高VM可用性的功能，但毕竟虚拟硬盘还是太大了，传统上除了视频文件，网络上很少有这种大流量传输的需求。VM迁移对已有网络的承受能力是一个考验。还有一个问题是很多虚拟硬盘中的数据都是重复的，占用了大量的存储空间。为了解决这些问题，就出现了下面的差分硬盘功能。</p>
 <h1 id="差分硬盘"><a href="#差分硬盘" class="headerlink" title="差分硬盘"></a>差分硬盘</h1><p>虽然可以预先制作一个标准VM镜像，然后批量拷贝得到很多VM，但VM运行后会在虚拟硬盘中写入不同的数据，所以每个VM的虚拟硬盘内的数据都是不同的，迁移时必须要分别拷贝。即便是给VM添加两个虚拟硬盘，一个OS（系统盘），另一个空白硬盘专门保存用户数据（数据盘），还是难以避免Guest OS在系统盘修改文件数据。</p>
 <p>差分硬盘的思路类似内存管理中的copy on write (COW) 技术。基于父虚拟硬盘创建一个差分硬盘（子盘），VM挂载子盘后，看上去跟父盘完全一样，只是后续增删的数据都是保存在子盘上的。</p>
-<p>子盘还可以再继续创建差分盘（孙盘），这样子子孙孙 <strong>纵向</strong> 延续下去。比如vhd可以支持创建127代，而且 <strong>每代差分硬盘的性能基本一致，不受代数层次的影响</strong>。另外，一个父盘还可以有多个子盘，也就是 <strong>横向</strong> 扩展，同一个父盘下面生成子盘的个数没有限制，因为父子关系信息，即父盘的位置和GUID，只保存在子盘里。横向和纵向的差分盘可能形成一棵树。下面就是VMware的快照管理器截图（快照实际上包括虚拟硬盘快照和VM配置快照两部分，显然硬盘快照是占大头的部分）。<img src="/img/vmware-snapshot.png" alt=""></p>
+<p>子盘还可以再继续创建差分盘（孙盘），这样子子孙孙 <strong>纵向</strong> 延续下去。比如vhd可以支持创建127代，而且 <strong>每代差分硬盘的性能基本一致，不受代数层次的影响</strong>。另外，一个父盘还可以有多个子盘，也就是 <strong>横向</strong> 扩展，同一个父盘下面生成子盘的个数没有限制，因为父子关系信息，即父盘的位置和GUID，只保存在子盘里。横向和纵向的差分盘可能形成一棵树。下面就是VMware的快照管理器截图（快照实际上包括虚拟硬盘快照和VM配置快照两部分，显然硬盘快照是占大头的部分）。<img src="/img/vmware-snapshot.png" alt></p>
 <p>差分硬盘相比普通虚拟硬盘在性能上会有一点损失，但给运维带来的便利是很大的。微软有一个关于vhd在windows server 2008和2008 R2多种应用场景下的<a href="http://go.microsoft.com/fwlink/p/?LinkId=186519" target="_blank" rel="noopener">性能测试的文档</a>，包括物理硬盘 vs 固定分配的vhd vs 动态分配的vhd vs 差分vhd。结果是动态分配的vhd性能下降比较明显，固定分配的vhd和差分vhd的性能都接近物理硬盘。</p>
 <p>创建一个差分硬盘基本不到1秒钟，于是就可以实现秒级创建/克隆/离线迁移VM，秒级创建快照，克隆是针对多个VM，而快照是针对某一个VM的。<br>理论上来说，所有VM公用的父虚拟硬盘可以只保存一个，会减少很多原来虚拟硬盘占用的实际存储空间，当然这个父盘需要保存在可以远程访问的共享存储上，一般是samba/cifs或者NFS共享目录。</p>
 <h1 id="快照和克隆"><a href="#快照和克隆" class="headerlink" title="快照和克隆"></a><strong>快照和克隆</strong></h1><p>上面截图是VMware的快照功能，可以创建出一棵快照树。VMware这个快照管理器中</p>
@@ -210,12 +210,12 @@
       </div>
       <footer id="footer">
 	<center>
-		<img src="/img/qr.jpg" alt="赏~" height="150" />
-		<br/>支持一下！
+		<img src="/img/qr.jpg" alt="赏~" height="150">
+		<br>支持一下！
 		
 					<div id="footer-info" class="inner">
 						&copy;
-						2018
+						2019
 							Ying ZHANG
 								- Powered by
 								<a href="http://hexo.io/" target="_blank">Hexo</a>

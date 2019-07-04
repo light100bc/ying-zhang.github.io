@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>【译文修订】使用Borg在Google管理大规模集群 | Ying的博客</title>
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
-</head>
+</head></html>
 <body>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container">
     <div id="wrap">
@@ -205,7 +205,7 @@
 <p>图10表明，如果没有资源回收，将需要更多的机器。在一个中等规模的Cell中大概有20%的工作负载（§6.2）使用了回收的资源。</p>
 <p>图11可以看到更多的细节，其中有预留值、使用量与限额的比例。当资源紧张时，超出内存限额的任务首先会被抢占，不论优先级有多高，所以很少有任务超过内存限额。另一方面，CPU使用量是可以被轻易限制住的，所以短时的毛刺虽然会导致使用量超过预留值，但这没什么损害。</p>
 <p>图11表明了资源回收可能还过于保守：在预留值和实际使用量中间还有一大段差距。为了测试这一点，我们选择了一个线上Cell，（第一周作为参照基准，）第二周将其估计算法的参数调整为比较<strong>激进</strong>的设置，即把安全裕度留小一点；第三周采取的是介于激进和基准之间的<strong>适度</strong>策略，最后一周恢复到基准策略。</p>
-<p><img src="/img/borg-fig-08-09-10-11.png" alt=""></p>
+<p><img src="/img/borg-fig-08-09-10-11.png" alt></p>
 <p>图12展示了结果。第二周的预留值明显更接近实际使用量，第三周稍大一点，最大的是第一周和第四周。和预期的一样，第二周和第三周的OOM比率轻微地增加了（注：第3周后期的异常情况与本次实验无关）。在评估了这个结果后，我们认为利大于弊，于是在其它Cell上也采用了<strong>适度</strong>策略的资源回收参数。</p>
 <p><img src="/img/borg-fig-12.png" alt="图12. 更激进的资源估计可以回收更多资源，但会稍增加OOM事件"></p>
 <h1 id="6-隔离"><a href="#6-隔离" class="headerlink" title="6. 隔离"></a>6. 隔离</h1><p>50%的机器运行了9个以上的任务；处于90%分位数的机器则有大约25个任务，4500个线程[83]。虽然在应用之间共享机器会增加利用率，但也需要一个比较好的机制来保证任务之间不产生干扰。这同时适用于安全和性能两个方面。</p>
@@ -323,12 +323,12 @@
       </div>
       <footer id="footer">
 	<center>
-		<img src="/img/qr.jpg" alt="赏~" height="150" />
-		<br/>支持一下！
+		<img src="/img/qr.jpg" alt="赏~" height="150">
+		<br>支持一下！
 		
 					<div id="footer-info" class="inner">
 						&copy;
-						2018
+						2019
 							Ying ZHANG
 								- Powered by
 								<a href="http://hexo.io/" target="_blank">Hexo</a>
